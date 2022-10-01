@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  border: 0;
+}
+body {
+  background-color: #1D2228;
+  color: #E1E2E2;
+  font-family: Tahoma;
+}
+
+input {
+  font: inherit;
+  padding: 5px;
+  outline: none;
+}
+
+.container {
+  max-width: 1460px;
+  padding: 5px 10px;
+  margin: 0 auto;
+}
+
+.button {
+  display: block;
+  width: 80px;
+  height: 40px;
+  background-color: #FB8122;
+  font: inherit;
+  color: #FFFFFF;
+}
