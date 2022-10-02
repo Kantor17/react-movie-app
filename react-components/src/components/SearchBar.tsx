@@ -1,15 +1,35 @@
 import React from 'react';
 import './SearchBar.css';
 
-export default class SearchBar extends React.Component {
+interface ISearchBarState {
+  query: string;
+}
+export default class SearchBar extends React.Component<unknown, ISearchBarState> {
+  constructor() {
+    super({});
+    this.state = {
+      query: localStorage.getItem('searchQuery') || '',
+    };
+  }
+
   render() {
     return (
       <form method="get" className="search-bar">
-        <input type="text" className="search-text" placeholder="Search..." />
+        <input
+          value={this.state.query}
+          type="text"
+          className="search-text"
+          placeholder="Search..."
+          onChange={(event) => this.setState({ query: event.target.value })}
+        />
         <button type="submit" className="search-submit button">
           Search
         </button>
       </form>
     );
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('searchQuery', this.state.query);
   }
 }
