@@ -1,0 +1,4 @@
+.navitem.active {
+  color: #fe4141;
+  pointer-events: none;
+}
