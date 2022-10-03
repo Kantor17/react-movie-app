@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/kantor17-REACT2022Q3/react-components/static/css/main.e7c53dad.css",
-    "main.js": "/kantor17-REACT2022Q3/react-components/static/js/main.2a12223f.js",
-    "index.html": "/kantor17-REACT2022Q3/react-components/index.html",
-    "static/media/time.svg": "/kantor17-REACT2022Q3/react-components/static/media/time.5b956289cac584ef542d.svg",
-    "main.e7c53dad.css.map": "/kantor17-REACT2022Q3/react-components/static/css/main.e7c53dad.css.map",
-    "main.2a12223f.js.map": "/kantor17-REACT2022Q3/react-components/static/js/main.2a12223f.js.map"
+    "main.css": "/kantor17-REACT2022Q3/static/css/main.9cc1119e.css",
+    "main.js": "/kantor17-REACT2022Q3/static/js/main.b3709f46.js",
+    "index.html": "/kantor17-REACT2022Q3/index.html",
+    "static/media/time.svg": "/kantor17-REACT2022Q3/static/media/time.5b956289cac584ef542d.svg",
+    "main.9cc1119e.css.map": "/kantor17-REACT2022Q3/static/css/main.9cc1119e.css.map",
+    "main.b3709f46.js.map": "/kantor17-REACT2022Q3/static/js/main.b3709f46.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7c53dad.css",
-    "static/js/main.2a12223f.js"
+    "static/css/main.9cc1119e.css",
+    "static/js/main.b3709f46.js"
   ]
 }
