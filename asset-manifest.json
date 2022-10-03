@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/kantor17-REACT2022Q3/react-components/static/css/main.e7c53dad.css",
+    "main.js": "/kantor17-REACT2022Q3/react-components/static/js/main.2a12223f.js",
+    "index.html": "/kantor17-REACT2022Q3/react-components/index.html",
+    "static/media/time.svg": "/kantor17-REACT2022Q3/react-components/static/media/time.5b956289cac584ef542d.svg",
+    "main.e7c53dad.css.map": "/kantor17-REACT2022Q3/react-components/static/css/main.e7c53dad.css.map",
+    "main.2a12223f.js.map": "/kantor17-REACT2022Q3/react-components/static/js/main.2a12223f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7c53dad.css",
+    "static/js/main.2a12223f.js"
+  ]
+}
