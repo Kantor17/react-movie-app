@@ -1,6 +1,6 @@
 import React from 'react';
 import './MovieCardsList.css';
-import MovieCard, { IMovie } from './MovieCard';
+import MovieCard, { IMovie } from '../MovieCard/MovieCard';
 
 // just a mock, in future I will fetch data from API
 const movies: Array<IMovie> = [
