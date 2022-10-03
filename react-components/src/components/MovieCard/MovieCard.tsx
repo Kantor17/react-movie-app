@@ -15,7 +15,7 @@ export default class MovieCard extends React.Component<MovieCardProps> {
         <div className="movie-card__poster">
           <img
             src={`${BACKDROP_DEFAULT_PATH}${this.props.movie.backdrop_path}`}
-            alt="The Imitation Game poster"
+            alt={`${this.props.movie.title} backdrop image`}
             className="bg-img"
           />
         </div>
