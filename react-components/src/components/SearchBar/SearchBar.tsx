@@ -4,9 +4,9 @@ import './SearchBar.css';
 interface ISearchBarState {
   query: string;
 }
-export default class SearchBar extends React.Component<unknown, ISearchBarState> {
-  constructor() {
-    super({});
+export default class SearchBar extends React.Component<Record<string, never>, ISearchBarState> {
+  constructor(props: Record<string, never>) {
+    super(props);
     this.state = {
       query: localStorage.getItem('searchQuery') || '',
     };
