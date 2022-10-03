@@ -14,7 +14,7 @@ export default class SearchBar extends React.Component<unknown, ISearchBarState>
 
   render() {
     return (
-      <form method="get" className="search-bar">
+      <form method="get" className="search-bar" onSubmit={(event) => event.preventDefault()}>
         <input
           value={this.state.query}
           type="text"
