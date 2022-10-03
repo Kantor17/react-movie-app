@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component<Record<string, never>, IS
       <form method="get" className="search-bar" onSubmit={(event) => event.preventDefault()}>
         <input
           value={this.state.query}
-          type="text"
+          type="search"
           className="search-text"
           placeholder="Search..."
           onChange={(event) => this.setState({ query: event.target.value })}
