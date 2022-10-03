@@ -11,7 +11,7 @@ const BACKDROP_DEFAULT_PATH = 'https://image.tmdb.org/t/p/original/';
 export default class MovieCard extends React.Component<MovieCardProps> {
   render() {
     return (
-      <div className="movie-card">
+      <div className="movie-card" data-testid="movie-card">
         <div className="movie-card__poster">
           <img
             src={`${BACKDROP_DEFAULT_PATH}${this.props.movie.backdrop_path}`}
