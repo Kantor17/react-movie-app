@@ -1,5 +1,5 @@
 import React from 'react';
-import NavItem from '../NavItem/NavItem';
+import NavItem from '../NavItem/';
 import './Navbar.css';
 
 export default class Navbar extends React.Component {
@@ -9,6 +9,7 @@ export default class Navbar extends React.Component {
         <ul className="navlist">
           <NavItem path="/">Home</NavItem>
           <NavItem path="/about">About</NavItem>
+          <NavItem path="/ideas">Ideas</NavItem>
         </ul>
       </nav>
     );
