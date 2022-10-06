@@ -1,0 +1,38 @@
+.checkbox-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.checkbox-item__label {
+  font-size: 15px;
+}
+
+.checkbox-item__checkbox {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-item__checkmark {
+  position: relative;
+  width: 25px;
+  height: 17px;
+  border: solid 1px #E1E2E2;
+}
+.checkbox-item__checkmark:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s linear;
+  width: 18px;
+  height: 10px;
+  background-color: #fe4141;
+}
+
+.checkbox-item__checkbox:checked ~ .checkbox-item__checkmark::after {
+  transform: translate(-50%, -50%) scale(1);
+}
