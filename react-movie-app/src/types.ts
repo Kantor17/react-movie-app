@@ -5,7 +5,7 @@ export interface IMovie {
   original_language: string;
   overview: string;
   release_date: string;
-  runtime: number;
+  runtime: number | string;
   title: string;
   vote_average: number;
 }
