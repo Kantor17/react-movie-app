@@ -4,7 +4,10 @@ import CheckboxItem from 'ui/CheckboxItem';
 import Switcher from 'ui/Switcher';
 import './MovieForm.css';
 
-export default class MovieForm extends React.Component {
+interface IMovieFormProps {
+  addNewItemCb: (movie: IMovie) => void;
+}
+export default class MovieForm extends React.Component<IMovieFormProps> {
   nameRef: React.RefObject<HTMLInputElement>;
   overviewRef: React.RefObject<HTMLTextAreaElement>;
   dateRef: React.RefObject<HTMLInputElement>;
@@ -13,7 +16,7 @@ export default class MovieForm extends React.Component {
   durationRef: React.RefObject<HTMLInputElement>;
   imageRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props: Record<string, unknown>) {
+  constructor(props: IMovieFormProps) {
     super(props);
 
     this.nameRef = React.createRef();
@@ -37,20 +40,20 @@ export default class MovieForm extends React.Component {
       return genres;
     };
 
-    const movie: Partial<IMovie> = {
-      title: this.nameRef.current?.value,
-      overview: this.overviewRef.current?.value,
-      release_date: this.dateRef.current?.value,
-      original_language: this.languageRef.current?.value,
+    const movie: IMovie = {
+      title: this.nameRef.current?.value || 'TBD TITLE',
+      overview: this.overviewRef.current?.value || 'TBD OVERVIEW',
+      release_date: this.dateRef.current?.value || 'TBA',
+      original_language: this.languageRef.current?.value || 'en',
       genres: getGenres(),
-      runtime: this.durationRef.current?.checked ? 'Short(<50 min.)' : 'Full-length(> 50 min.)',
+      runtime: this.durationRef.current?.checked ? '> 50' : '< 50',
       backdrop_path: URL.createObjectURL((this.imageRef.current?.files as FileList)[0]),
     };
     return movie;
   }
   handleCreation(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
-    console.log(this.getInfoFromForm());
+    this.props.addNewItemCb(this.getInfoFromForm());
   }
   render() {
     return (

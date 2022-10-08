@@ -11,7 +11,7 @@ describe('MovieCard', () => {
   });
   test('has release year of movie in parentheses', () => {
     render(<MovieCard movie={movieExample} />);
-    expect(screen.getByText(`(${movieExample.release_date})`)).toBeInTheDocument();
+    expect(screen.getByText(`(${movieExample.release_date.slice(0, 4)})`)).toBeInTheDocument();
   });
   test('has genres of movie', () => {
     render(<MovieCard movie={movieExample} />);
