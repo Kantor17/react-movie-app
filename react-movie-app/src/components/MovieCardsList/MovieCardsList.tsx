@@ -1,13 +1,16 @@
 import React from 'react';
 import './MovieCardsList.css';
 import MovieCard from '../MovieCard/MovieCard';
-import { movies } from 'data/movies';
+import { IMovie } from 'types';
 
-export default class MovieCardsList extends React.Component {
+interface IMovieCardsListProps {
+  movies: IMovie[];
+}
+export default class MovieCardsList extends React.Component<IMovieCardsListProps> {
   render() {
     return (
       <div className="movie-cards-list">
-        {movies.map((movie) => (
+        {this.props.movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>

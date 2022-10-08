@@ -3,6 +3,7 @@ import './Home.css';
 import MovieCardsList from 'components/MovieCardsList/MovieCardsList';
 import SearchBar from 'components/SearchBar/SearchBar';
 import Header from 'components/Header/Header';
+import { movies } from 'data/movies';
 
 export default class Home extends React.Component {
   render() {
@@ -12,7 +13,7 @@ export default class Home extends React.Component {
         <main className="main">
           <div className="container">
             <SearchBar />
-            <MovieCardsList />
+            <MovieCardsList movies={movies} />
           </div>
         </main>
       </div>
