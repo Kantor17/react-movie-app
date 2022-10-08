@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { IMovie } from 'types';
 import CheckboxItem from 'ui/CheckboxItem';
 import Switcher from 'ui/Switcher';
@@ -51,13 +51,13 @@ export default class MovieForm extends React.Component<IMovieFormProps> {
     };
     return movie;
   }
-  handleCreation(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  handleCreation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     this.props.addNewItemCb(this.getInfoFromForm());
   }
   render() {
     return (
-      <form className="movie-form">
+      <form className="movie-form" onSubmit={(event) => this.handleCreation(event)}>
         <div className="movie-form__field">
           <label htmlFor="name" className="movie-form__label">
             Name:
@@ -153,11 +153,7 @@ export default class MovieForm extends React.Component<IMovieFormProps> {
             ref={this.imageRef}
           />
         </div>
-        <button
-          className="movie-form__create-btn"
-          type="submit"
-          onClick={(event) => this.handleCreation(event)}
-        >
+        <button className="movie-form__create-btn" type="submit">
           Create
         </button>
       </form>
