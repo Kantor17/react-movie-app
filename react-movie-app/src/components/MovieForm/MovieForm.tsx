@@ -87,7 +87,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
       image: [],
     };
 
-    if (!this.nameRef.current?.value.trim()) newErrorState.name.push('Name cannot  be empty.');
+    if (!this.nameRef.current?.value.trim()) newErrorState.name.push('Name cannot be empty.');
 
     const overviewLength = this.overviewRef.current?.value.trim().length;
     if (!overviewLength || overviewLength < 50)
@@ -260,6 +260,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
         <FormField
           inputE={
             <input
+              id="image-input"
               type="file"
               multiple={false}
               accept=".png, .jpg, .jpeg"
