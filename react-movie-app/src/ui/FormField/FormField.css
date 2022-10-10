@@ -9,3 +9,8 @@
   font-size: 18px;
   width: fit-content;
 }
+
+.form-field__error {
+  font-size: 14px;
+  color: #cc0000;
+}

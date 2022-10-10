@@ -4,7 +4,7 @@ import './FormField.css';
 interface IFormFieldProps {
   inputE: ReactElement;
   labelText: string;
-  errors: string[];
+  errors?: string[];
 }
 export default function FormField({ inputE, labelText, errors }: IFormFieldProps) {
   return (
@@ -13,7 +13,7 @@ export default function FormField({ inputE, labelText, errors }: IFormFieldProps
         {labelText}
       </label>
       {inputE}
-      {errors.length > 0 && <p className="form__error">{errors.join(' ')}</p>}
+      {errors && errors.length > 0 && <p className="form-field__error">{errors.join(' ')}</p>}
     </div>
   );
 }

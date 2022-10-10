@@ -55,6 +55,11 @@ button {
   background-color: #fe4141;
   font: inherit;
   color: #FFFFFF;
+  cursor: pointer;
+}
+.button_disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .link {
