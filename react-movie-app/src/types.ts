@@ -1,5 +1,5 @@
 export interface IMovie {
-  id?: number;
+  id: number | string;
   backdrop_path: string;
   genres: Array<string>;
   original_language: string;

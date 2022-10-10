@@ -1,4 +1,6 @@
 import React, { FormEvent } from 'react';
+import uuid from 'react-uuid';
+
 import { IMovie } from 'types';
 import CheckboxItem from 'ui/CheckboxItem';
 import Switcher from 'ui/Switcher';
@@ -8,10 +10,12 @@ import FormField from '../../ui/FormField/FormField';
 interface IMovieFormProps {
   addNewItemCb: (movie: IMovie) => void;
 }
+
+interface IErrors {
+  [key: string]: string[];
+}
 interface IMovieFormState {
-  errors: {
-    [key: string]: string[];
-  };
+  errors: IErrors;
   isDisabled: boolean;
 }
 export default class MovieForm extends React.Component<IMovieFormProps, IMovieFormState> {
@@ -57,7 +61,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
     return genres;
   }
 
-  removeErrors(name: string) {
+  resetError(name: string) {
     this.setState(
       (prevState) => ({
         errors: {
@@ -71,8 +75,8 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
     );
   }
 
-  getFromValidation() {
-    const newErrorState: { [key: string]: string[] } = {
+  getFormValidation() {
+    const newErrorState: IErrors = {
       name: [],
       overview: [],
       date: [],
@@ -117,28 +121,30 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
   }
 
   getInfoFromForm() {
-    const movie: IMovie = {
-      title: this.nameRef.current?.value || 'TBD TITLE',
-      overview: this.overviewRef.current?.value || 'TBD OVERVIEW',
-      release_date: this.dateRef.current?.value || 'TBA',
-      original_language: this.languageRef.current?.value || 'en',
-      genres: this.getGenres(),
-      runtime: this.durationRef.current?.checked ? '> 50' : '< 50',
-      backdrop_path: URL.createObjectURL((this.imageRef.current?.files as FileList)[0]),
-    };
-    return movie;
+    if (this.checkForErrors()) {
+      const movie: IMovie = {
+        id: uuid(),
+        title: this.nameRef.current?.value as string,
+        overview: this.overviewRef.current?.value as string,
+        release_date: this.dateRef.current?.value as string,
+        original_language: this.languageRef.current?.value as string,
+        genres: this.getGenres(),
+        runtime: this.durationRef.current?.checked ? '> 50' : '< 50',
+        backdrop_path: URL.createObjectURL((this.imageRef.current?.files as FileList)[0]),
+      };
+      return movie;
+    }
   }
 
   handleCreation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     this.setState(
       {
-        errors: this.getFromValidation(),
+        errors: this.getFormValidation(),
       },
       () => {
-        if (this.checkForErrors()) {
-          this.props.addNewItemCb(this.getInfoFromForm());
-        }
+        const formInfo = this.getInfoFromForm();
+        if (formInfo) this.props.addNewItemCb(formInfo);
       }
     );
   }
@@ -154,7 +160,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
               className="movie-form__input"
               placeholder="Name of your movie"
               ref={this.nameRef}
-              onChange={() => this.removeErrors('name')}
+              onChange={() => this.resetError('name')}
             />
           }
           labelText="Name:"
@@ -167,7 +173,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
               className="movie-form__textarea movie-form__input"
               placeholder="Short description of your movie"
               ref={this.overviewRef}
-              onChange={() => this.removeErrors('overview')}
+              onChange={() => this.resetError('overview')}
             ></textarea>
           }
           labelText={'Overview:'}
@@ -180,7 +186,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
               type="date"
               className="movie-form__input movie-form__date"
               ref={this.dateRef}
-              onChange={() => this.removeErrors('date')}
+              onChange={() => this.resetError('date')}
             />
           }
           labelText="Planning release date"
@@ -209,7 +215,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
               id="genres-input"
               className="movie-form__checkbox-group"
               ref={this.genresRef}
-              onChange={() => this.removeErrors('genres')}
+              onChange={() => this.resetError('genres')}
             >
               <CheckboxItem name="drama" />
               <CheckboxItem name="mystery" />
@@ -242,7 +248,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
               accept=".png, .jpg, .jpeg"
               className="movie-form__file"
               ref={this.imageRef}
-              onChange={() => this.removeErrors('image')}
+              onChange={() => this.resetError('image')}
             />
           }
           labelText="Backdrop image"
