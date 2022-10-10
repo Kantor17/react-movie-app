@@ -144,7 +144,13 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
       },
       () => {
         const formInfo = this.getInfoFromForm();
-        if (formInfo) this.props.addNewItemCb(formInfo);
+        if (formInfo) {
+          this.props.addNewItemCb(formInfo);
+          (event.target as HTMLFormElement).reset();
+          this.setState({
+            isDisabled: true,
+          });
+        }
       }
     );
   }
