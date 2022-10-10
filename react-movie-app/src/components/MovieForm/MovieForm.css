@@ -50,3 +50,8 @@
   font-weight: 500;
   border-radius: 2px;
 }
+
+.movie-form__success-msg {
+  font-size: 20px;
+  font-weight: 600;
+}

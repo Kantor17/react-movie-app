@@ -6,6 +6,7 @@ import CheckboxItem from 'ui/CheckboxItem';
 import Switcher from 'ui/Switcher';
 import './MovieForm.css';
 import FormField from '../../ui/FormField/FormField';
+import Modal from 'ui/Modal/';
 
 interface IMovieFormProps {
   addNewItemCb: (movie: IMovie) => void;
@@ -17,6 +18,7 @@ interface IErrors {
 interface IMovieFormState {
   errors: IErrors;
   isDisabled: boolean;
+  isModal: boolean;
 }
 export default class MovieForm extends React.Component<IMovieFormProps, IMovieFormState> {
   nameRef: React.RefObject<HTMLInputElement>;
@@ -47,6 +49,7 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
         image: [],
       },
       isDisabled: true,
+      isModal: false,
     };
   }
 
@@ -146,10 +149,11 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
         const formInfo = this.getInfoFromForm();
         if (formInfo) {
           this.props.addNewItemCb(formInfo);
-          (event.target as HTMLFormElement).reset();
           this.setState({
             isDisabled: true,
+            isModal: true,
           });
+          (event.target as HTMLFormElement).reset();
         }
       }
     );
@@ -158,6 +162,13 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
   render() {
     return (
       <form className="movie-form" onSubmit={(event) => this.handleCreation(event)}>
+        {this.state.isModal && (
+          <Modal closeCb={() => this.setState({ isModal: false })}>
+            <p className="movie-form__success-msg">
+              You have successfully created your movie idea&apos;s card!
+            </p>
+          </Modal>
+        )}
         <FormField
           inputE={
             <input

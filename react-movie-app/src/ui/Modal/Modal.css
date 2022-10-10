@@ -1,0 +1,32 @@
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #212120;
+  cursor: default;
+  animation: grow 0.3s;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }100%{
+    transform: scale(1);
+  }
+}
