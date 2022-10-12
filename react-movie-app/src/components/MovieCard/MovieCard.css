@@ -1,38 +1,41 @@
 .movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 0;
   width: 600px;
   height: 250px;
+  padding: 12px;
   border-radius: 8px;
   background-color: #212120;
   box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+.movie-card:hover .movie-card__poster {
+  opacity: 0.8;
+}
+.movie-card:hover .movie-card__more-text {
+  transform: translateY(0);
 }
 
 .movie-card__poster {
   position: absolute;
+  opacity: 0.4;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 100%;
   z-index: -1;
+  transition: opacity 0.5s;
 }
-
 .movie-card__poster .bg-img{
   border-radius: 8px;
 }
 
-.movie-card__info {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  width: 50%;
-  height: 100%;
-  padding: 8px 12px;
-  background-color: rgba(33, 33, 32, 0.9);
-  overflow-y: scroll;
-}
-.movie-card__info::-webkit-scrollbar {
-  display: none;
+.movie-card__title {
+  margin: auto;
 }
 
 .movie-card__name {
@@ -40,44 +43,31 @@
   color: #fe4141;
 }
 
-.movie-card__genres {
-  text-transform: capitalize;
+.movie-card__more-container {
+  margin-bottom: 10px;
+  overflow-y: hidden;
+}
+.movie-card__more-text {
+  font-size: 17px;
   font-weight: 600;
+  transform: translateY(-20px);
+  transition: transform 0.3s;
 }
 
-.movie-card__overview {
-  font-size: 14px;
-  font-weight: 300;
-  opacity: 0.9;
-}
 
-.movie-card__runtime {
-  display: flex;
-  position: relative;
-  column-gap: 6px;
-}
-.movie-card__runtime::before {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background-image: url("../../assets/icons/time.svg");
-  background-repeat: no-repeat;
-}
-
-.movie-card__rating,
+/* .movie-card__rating,
 .movie-card__language {
   position: absolute;
-  right: 3px;
+  top: 3px;
   padding: 10px;
   font-size: 18px;
   border-radius: 100%;  
   background-color: rgba(33, 33, 32, 0.9);
 }
 .movie-card__rating {
-  top: 3px;
+  right: 3px;
 }
 .movie-card__language {
-  bottom: 3px;
+  left: 3px;
   text-transform: uppercase;
-}
+} */

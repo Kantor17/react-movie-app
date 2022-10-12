@@ -1,0 +1,59 @@
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  overflow-y: scroll;
+}
+.movie-info::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-info__title {
+  font-size: 22px;
+  color: #fe4141;
+  text-align: center;
+}
+
+.movie-info__subtitle {
+  font-size: 17px;
+  font-weight: 600;
+  display: inline;
+}
+
+.movie-info__overview {
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.movie-info__grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 8px;
+}
+.movie-info__column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.movie-info__genres {
+  text-transform: capitalize;
+}
+
+.movie-info__runtime {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  column-gap: 6px;
+}
+.movie-info__runtime::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url("../../assets/icons/time.svg");
+  background-repeat: no-repeat;
+}
