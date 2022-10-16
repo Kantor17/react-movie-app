@@ -2,6 +2,7 @@ import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
 import React, { FormEvent } from 'react';
 import { IMovie } from 'types';
+import Loader from 'ui/Loader';
 import './SearchBar.css';
 
 interface ISearchBarProps {
@@ -10,12 +11,14 @@ interface ISearchBarProps {
 
 interface ISearchBarState {
   query: string;
+  isLoading: boolean;
 }
 export default class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
   constructor(props: ISearchBarProps) {
     super(props);
     this.state = {
       query: localStorage.getItem('searchQuery') || '',
+      isLoading: false,
     };
   }
 
@@ -26,6 +29,9 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
   }
 
   async searchMovies() {
+    this.setState({
+      isLoading: true,
+    });
     const searchResult = await searchMovies(this.state.query);
     const movies = [];
     for (const result of searchResult) {
@@ -33,6 +39,9 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
       movies.push(movie);
     }
     this.props.changeMoviesCb(movies);
+    this.setState({
+      isLoading: false,
+    });
   }
 
   async handleSearch(event: FormEvent<HTMLFormElement>) {
@@ -46,12 +55,17 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
         <input
           value={this.state.query}
           type="search"
-          className="search-text"
+          className="search-bar__text"
           placeholder="Search..."
           onChange={(event) => this.setState({ query: event.target.value })}
         />
-        <button type="submit" className="search-submit button">
-          Search
+        <button
+          type="submit"
+          className={`search-bar__submit button ${
+            this.state.isLoading ? 'search-bar__submit_disabled' : ''
+          }`}
+        >
+          {this.state.isLoading ? <Loader /> : 'Search'}
         </button>
       </form>
     );

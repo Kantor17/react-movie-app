@@ -3,7 +3,13 @@
   align-items: center;
 }
 
-.search-text {
+.search-bar__text {
   width: 300px;
   height: 40px;
+  background-color: #ddd;
+}
+
+.search-bar__submit_disabled {
+  background-color:#212120;
+  pointer-events: none;
 }
