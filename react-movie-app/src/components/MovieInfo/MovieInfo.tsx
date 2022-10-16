@@ -19,7 +19,7 @@ export default class MovieInfo extends React.Component<IMovieInfoProps> {
             </div>
             <div className="movie-info__genres">
               <h4 className="movie-info__subtitle">Genres: </h4>
-              {this.props.movie.genres.join(', ')}
+              {this.props.movie.genres.map((genreObj) => genreObj.name).join(', ')}
             </div>
           </div>
           <div className="movie-info__column">

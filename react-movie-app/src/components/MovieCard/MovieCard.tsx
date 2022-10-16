@@ -3,6 +3,7 @@ import React from 'react';
 import { IMovie } from 'types';
 import Modal from 'ui/Modal';
 import './MovieCard.css';
+import backdropPlaceholder from '../../assets/img/backdrop-placeholder.jpg';
 
 interface IMovieCardProps {
   movie: IMovie;
@@ -18,6 +19,15 @@ export default class MovieCard extends React.Component<IMovieCardProps, IMovieCa
       isModal: false,
     };
   }
+
+  getImageSrc() {
+    const imagePath = this.props.movie.backdrop_path;
+    if (!imagePath) return backdropPlaceholder;
+    if (imagePath.includes('blob')) return imagePath;
+    const BASE_IMG_PATH = 'https://image.tmdb.org/t/p/original';
+    return BASE_IMG_PATH + imagePath;
+  }
+
   render() {
     return (
       <>
@@ -28,7 +38,7 @@ export default class MovieCard extends React.Component<IMovieCardProps, IMovieCa
         >
           <div className="movie-card__poster">
             <img
-              src={this.props.movie.backdrop_path}
+              src={this.getImageSrc()}
               alt={`${this.props.movie.title} backdrop image`}
               className="bg-img"
             />
@@ -36,7 +46,7 @@ export default class MovieCard extends React.Component<IMovieCardProps, IMovieCa
           <h3 className="movie-card__title">
             <span className="movie-card__name">{this.props.movie.title} </span>
             <span className="movie-card__release-date">
-              ({this.props.movie.release_date.slice(0, 4)})
+              ({this.props.movie.release_date ? this.props.movie.release_date.slice(0, 4) : 'TBA'})
             </span>
           </h3>
           <div className="movie-card__more-container">

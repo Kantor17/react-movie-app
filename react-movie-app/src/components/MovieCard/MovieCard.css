@@ -36,6 +36,7 @@
 
 .movie-card__title {
   margin: auto;
+  text-align: center;
 }
 
 .movie-card__name {
@@ -53,21 +54,3 @@
   transform: translateY(-20px);
   transition: transform 0.3s;
 }
-
-
-/* .movie-card__rating,
-.movie-card__language {
-  position: absolute;
-  top: 3px;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 100%;  
-  background-color: rgba(33, 33, 32, 0.9);
-}
-.movie-card__rating {
-  right: 3px;
-}
-.movie-card__language {
-  left: 3px;
-  text-transform: uppercase;
-} */
