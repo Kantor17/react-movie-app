@@ -13,27 +13,27 @@ export default class MovieInfo extends React.Component<IMovieInfoProps> {
         <p className="movie-info__overview">{this.props.movie.overview}</p>
         <div className="movie-info__grid">
           <div className="movie-info__column">
-            <p className="movie-info__date">
+            <div className="movie-info__date">
               <h4 className="movie-info__subtitle">Release date: </h4>
               {this.props.movie.release_date}
-            </p>
-            <p className="movie-info__genres">
+            </div>
+            <div className="movie-info__genres">
               <h4 className="movie-info__subtitle">Genres: </h4>
               {this.props.movie.genres.join(', ')}
-            </p>
+            </div>
           </div>
           <div className="movie-info__column">
-            <p className="movie-info__language">
+            <div className="movie-info__language">
               <h4 className="movie-info__subtitle">Original language: </h4>
               {this.props.movie.original_language}
-            </p>
-            <p className="movie-info__rating">
+            </div>
+            <div className="movie-info__rating">
               <h4 className="movie-info__subtitle">Rating: </h4>
               {this.props.movie.vote_average ? this.props.movie.vote_average.toFixed(1) : 'TBA'}
-            </p>
+            </div>
           </div>
         </div>
-        <p className="movie-info__runtime">{this.props.movie.runtime} min.</p>
+        <div className="movie-info__runtime">{this.props.movie.runtime} min.</div>
       </div>
     );
   }
