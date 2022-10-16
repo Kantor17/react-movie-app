@@ -19,8 +19,13 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
     };
   }
 
-  async handleSearch(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  componentDidMount() {
+    if (this.state.query) {
+      this.searchMovies();
+    }
+  }
+
+  async searchMovies() {
     const searchResult = await searchMovies(this.state.query);
     const movies = [];
     for (const result of searchResult) {
@@ -28,6 +33,11 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
       movies.push(movie);
     }
     this.props.changeMoviesCb(movies);
+  }
+
+  async handleSearch(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    this.searchMovies();
   }
 
   render() {
