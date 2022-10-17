@@ -7,18 +7,18 @@ import './SearchBar.css';
 
 interface ISearchBarProps {
   changeMoviesCb(movies: IMovie[]): void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
 interface ISearchBarState {
   query: string;
-  isLoading: boolean;
 }
 export default class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
   constructor(props: ISearchBarProps) {
     super(props);
     this.state = {
       query: localStorage.getItem('searchQuery') || '',
-      isLoading: false,
     };
   }
 
@@ -29,9 +29,7 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
   }
 
   async searchMovies() {
-    this.setState({
-      isLoading: true,
-    });
+    this.props.setIsLoading(true);
     const searchResult = await searchMovies(this.state.query);
     const movies = [];
     for (const result of searchResult) {
@@ -39,9 +37,7 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
       movies.push(movie);
     }
     this.props.changeMoviesCb(movies);
-    this.setState({
-      isLoading: false,
-    });
+    this.props.setIsLoading(false);
   }
 
   async handleSearch(event: FormEvent<HTMLFormElement>) {
@@ -62,10 +58,10 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
         <button
           type="submit"
           className={`search-bar__submit button ${
-            this.state.isLoading ? 'search-bar__submit_disabled' : ''
+            this.props.isLoading ? 'search-bar__submit_disabled' : ''
           }`}
         >
-          {this.state.isLoading ? <Loader /> : 'Search'}
+          {this.props.isLoading ? <Loader /> : 'Search'}
         </button>
       </form>
     );

@@ -7,12 +7,14 @@ import { IMovie } from 'types';
 
 interface IHomeState {
   movies: IMovie[];
+  isLoading: boolean;
 }
 export default class Home extends React.Component<Record<string, unknown>, IHomeState> {
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
       movies: [],
+      isLoading: false,
     };
   }
 
@@ -22,8 +24,12 @@ export default class Home extends React.Component<Record<string, unknown>, IHome
         <Header />
         <main className="main">
           <div className="container">
-            <SearchBar changeMoviesCb={(movies: IMovie[]) => this.setState({ movies })} />
-            <MovieCardsList movies={this.state.movies} />
+            <SearchBar
+              changeMoviesCb={(movies: IMovie[]) => this.setState({ movies })}
+              isLoading={this.state.isLoading}
+              setIsLoading={(isLoading: boolean) => this.setState({ isLoading })}
+            />
+            <MovieCardsList movies={this.state.movies} isLoading={this.state.isLoading} />
           </div>
         </main>
       </div>

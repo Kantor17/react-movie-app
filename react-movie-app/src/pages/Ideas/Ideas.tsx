@@ -33,7 +33,9 @@ export default class Ideas extends React.Component<Record<string, never>, IIdeas
               You can create your own movie ideas and see them as cards below the creation form
             </p>
             <MovieForm addNewItemCb={this.addNewMovie} />
-            {this.state.movies.length > 0 && <MovieCardsList movies={this.state.movies} />}
+            {this.state.movies.length > 0 && (
+              <MovieCardsList movies={this.state.movies} isLoading={false} />
+            )}
           </div>
         </main>
       </div>
