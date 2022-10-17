@@ -25,7 +25,7 @@ describe('MovieForm', () => {
     expect(cbMock).toHaveBeenCalledWith(
       expect.objectContaining({
         backdrop_path: 'https://image.tmdb.org/t/p/original//jFp5aAlGQ1H3gwdORL2urr8dnoN.jpg',
-        genres: ['drama'],
+        genres: [{ name: 'drama' }],
         original_language: 'en',
         overview: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
         release_date: '9999-10-10',
