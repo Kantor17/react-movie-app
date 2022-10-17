@@ -13,9 +13,11 @@
 }
 
 .modal__content {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 40%;
   min-width: 40%;
   max-width: 60%;
   padding: 20px;
@@ -23,6 +25,16 @@
   background-color: #212120;
   cursor: default;
   animation: grow 0.3s;
+}
+
+.modal__close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  background-color: inherit;
+  cursor: pointer;
 }
 
 @keyframes grow {
