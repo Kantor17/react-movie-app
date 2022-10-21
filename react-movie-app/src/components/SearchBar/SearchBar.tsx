@@ -13,18 +13,34 @@ interface ISearchBarProps {
 
 interface ISearchBarState {
   query: string;
+  searchDisabled: boolean;
 }
 export default class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
   constructor(props: ISearchBarProps) {
     super(props);
     this.state = {
       query: localStorage.getItem('searchQuery') || '',
+      searchDisabled: true,
     };
   }
 
   componentDidMount() {
-    if (this.state.query) {
+    this.checkForDisabled();
+    if (this.state.query.trim().length >= 1) {
       this.searchMovies();
+    }
+  }
+
+  componentDidUpdate() {
+    this.checkForDisabled();
+  }
+
+  checkForDisabled() {
+    if (this.state.query.trim().length >= 1 && this.state.searchDisabled) {
+      this.setState({ searchDisabled: false });
+    }
+    if (this.state.query.trim().length < 1 && !this.state.searchDisabled) {
+      this.setState({ searchDisabled: true });
     }
   }
 
@@ -42,7 +58,7 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
 
   async handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.searchMovies();
+    if (!this.state.searchDisabled) this.searchMovies();
   }
 
   render() {
@@ -58,7 +74,7 @@ export default class SearchBar extends React.Component<ISearchBarProps, ISearchB
         <button
           type="submit"
           className={`search-bar__submit button ${
-            this.props.isLoading ? 'search-bar__submit_disabled' : ''
+            this.props.isLoading || this.state.searchDisabled ? 'search-bar__submit_disabled' : ''
           }`}
         >
           {this.props.isLoading ? <Loader /> : 'Search'}
