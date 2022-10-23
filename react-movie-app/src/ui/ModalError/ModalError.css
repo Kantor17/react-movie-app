@@ -1,0 +1,11 @@
+.modal-error {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.modal-error__heading {
+  font-size: 24px;
+  color: #fe4141;
+}
