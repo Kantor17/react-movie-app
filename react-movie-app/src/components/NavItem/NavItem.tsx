@@ -7,14 +7,12 @@ interface INavItemProps {
   children: React.ReactNode;
 }
 
-export default class NavItem extends React.Component<INavItemProps> {
-  render() {
-    return (
-      <ul className={`navitem ${window.location.pathname === this.props.path ? 'active' : ''}`}>
-        <Link to={this.props.path} className="header__navlink link">
-          {this.props.children}
-        </Link>
-      </ul>
-    );
-  }
+export default function NavItem({ path, children }: INavItemProps) {
+  return (
+    <ul className={`navitem ${window.location.pathname === path ? 'active' : ''}`}>
+      <Link to={path} className="header__navlink link">
+        {children}
+      </Link>
+    </ul>
+  );
 }

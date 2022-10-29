@@ -1,6 +1,7 @@
 import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
-import React, { FormEvent } from 'react';
+import { useMountEffect } from 'hooks/useMountEffect';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { IMovie } from 'types';
 import Loader from 'ui/Loader';
 import ModalError from 'ui/ModalError';
@@ -10,94 +11,75 @@ interface ISearchBarProps {
   changeMoviesCb(movies: IMovie[]): void;
 }
 
-interface ISearchBarState {
-  query: string;
-  searchDisabled: boolean;
-  isLoading: boolean;
-  error: Error | null;
-}
-export default class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
-  constructor(props: ISearchBarProps) {
-    super(props);
-    this.state = {
-      query: localStorage.getItem('searchQuery') || '',
-      searchDisabled: true,
-      isLoading: false,
-      error: null,
-    };
-  }
+export default function SearchBar({ changeMoviesCb }: ISearchBarProps) {
+  const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
+  const [searchDisabled, setSearchDisabled] = useState(query.trim().length < 1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
 
-  componentDidMount() {
-    this.checkForDisabled();
-    if (this.state.query.trim().length >= 1) {
-      this.searchMovies();
-    }
-  }
+  const handleSearch = useCallback(
+    async (event?: FormEvent<HTMLFormElement>) => {
+      if (event) event.preventDefault();
+      if (searchDisabled) return;
 
-  componentDidUpdate() {
-    this.checkForDisabled();
-  }
-
-  checkForDisabled() {
-    if (this.state.query.trim().length >= 1 && this.state.searchDisabled) {
-      this.setState({ searchDisabled: false });
-    }
-    if (this.state.query.trim().length < 1 && !this.state.searchDisabled) {
-      this.setState({ searchDisabled: true });
-    }
-  }
-
-  async searchMovies() {
-    this.setState({ isLoading: true });
-    try {
-      const searchResult = await searchMovies(this.state.query);
-      if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
-      const movies = [];
-      for (const result of searchResult) {
-        const movie = await getMovieDetails(result.id);
-        movies.push(movie);
+      setIsLoading(true);
+      try {
+        const searchResult = await searchMovies(query);
+        if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
+        const movies = [];
+        for (const result of searchResult) {
+          const movie = await getMovieDetails(result.id);
+          movies.push(movie);
+        }
+        changeMoviesCb(movies);
+      } catch (err) {
+        setError(err as Error);
       }
-      this.props.changeMoviesCb(movies);
-    } catch (err) {
-      this.setState({ error: err as Error });
+      setIsLoading(false);
+    },
+    [changeMoviesCb, query, searchDisabled]
+  );
+
+  useMountEffect(() => {
+    if (!searchDisabled) {
+      handleSearch();
     }
+  });
 
-    this.setState({ isLoading: false });
-  }
+  useEffect(() => {
+    if (query.trim().length >= 1) {
+      setSearchDisabled(false);
+    } else {
+      setSearchDisabled(true);
+    }
+  }, [query]);
 
-  async handleSearch(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!this.state.searchDisabled) this.searchMovies();
-  }
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('searchQuery', query);
+    };
+  });
 
-  render() {
-    return (
-      <>
-        {this.state.error && (
-          <ModalError closeCb={() => this.setState({ error: null })} error={this.state.error} />
-        )}
-        <form method="get" className="search-bar" onSubmit={(event) => this.handleSearch(event)}>
-          <input
-            value={this.state.query}
-            type="search"
-            className="search-bar__text"
-            placeholder="Search..."
-            onChange={(event) => this.setState({ query: event.target.value })}
-          />
-          <button
-            type="submit"
-            className={`search-bar__submit button ${
-              this.state.isLoading || this.state.searchDisabled ? 'search-bar__submit_disabled' : ''
-            }`}
-          >
-            {this.state.isLoading ? <Loader /> : 'Search'}
-          </button>
-        </form>
-      </>
-    );
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('searchQuery', this.state.query);
-  }
+  return (
+    <>
+      {error && <ModalError closeCb={() => setError(undefined)} error={error} />}
+      <form method="get" className="search-bar" onSubmit={(event) => handleSearch(event)}>
+        <input
+          value={query}
+          type="search"
+          className="search-bar__text"
+          placeholder="Search..."
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        <button
+          type="submit"
+          className={`search-bar__submit button ${
+            isLoading || searchDisabled ? 'search-bar__submit_disabled' : ''
+          }`}
+        >
+          {isLoading ? <Loader /> : 'Search'}
+        </button>
+      </form>
+    </>
+  );
 }
