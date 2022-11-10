@@ -2,20 +2,19 @@ import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
 import { useMountEffect } from 'hooks/useMountEffect';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
-import { IMovie } from 'types';
+import { useMoviesContext } from 'store/moviesContext';
+import { EMoviesActionTypes, IMovie } from 'types';
 import Loader from 'ui/Loader';
 import ModalError from 'ui/ModalError';
 import './SearchBar.css';
 
-interface ISearchBarProps {
-  changeMoviesCb(movies: IMovie[]): void;
-}
-
-export default function SearchBar({ changeMoviesCb }: ISearchBarProps) {
+export default function SearchBar() {
   const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
   const [searchDisabled, setSearchDisabled] = useState(query.trim().length < 1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
+
+  const { moviesState, moviesDispatch } = useMoviesContext();
 
   const handleSearch = useCallback(
     async (event?: FormEvent<HTMLFormElement>) => {
@@ -26,22 +25,22 @@ export default function SearchBar({ changeMoviesCb }: ISearchBarProps) {
       try {
         const searchResult = await searchMovies(query);
         if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
-        const movies = [];
+        const movies: IMovie[] = [];
         for (const result of searchResult) {
           const movie = await getMovieDetails(result.id);
           movies.push(movie);
         }
-        changeMoviesCb(movies);
+        moviesDispatch({ type: EMoviesActionTypes.REPLACE, payload: movies });
       } catch (err) {
         setError(err as Error);
       }
       setIsLoading(false);
     },
-    [changeMoviesCb, query, searchDisabled]
+    [query, searchDisabled, moviesDispatch]
   );
 
   useMountEffect(() => {
-    if (!searchDisabled) {
+    if (!searchDisabled && moviesState.movies.length < 1) {
       handleSearch();
     }
   });

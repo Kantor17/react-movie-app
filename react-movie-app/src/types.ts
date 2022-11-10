@@ -12,3 +12,16 @@ export interface IMovie {
   title: string;
   vote_average?: number;
 }
+
+export interface IMoviesState {
+  movies: IMovie[];
+}
+
+export enum EMoviesActionTypes {
+  REPLACE = 'REPLACE',
+}
+
+export interface IMoviesAction {
+  type: EMoviesActionTypes;
+  payload: IMovie[];
+}
