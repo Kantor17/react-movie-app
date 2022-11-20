@@ -2,8 +2,8 @@ import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
 import { useMountEffect } from 'hooks/useMountEffect';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useMoviesContext } from 'store/moviesContext';
-import { EMoviesActionTypes, IMovie } from 'types';
+import { useGlobalContext } from 'store/globalContext';
+import { EActionTypes, IMovie } from 'types';
 import Loader from 'ui/Loader';
 import ModalError from 'ui/ModalError';
 import './SearchBar.css';
@@ -14,7 +14,7 @@ export default function SearchBar() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const { moviesState, moviesDispatch } = useMoviesContext();
+  const { globalState, globalDispatch } = useGlobalContext();
 
   const handleSearch = useCallback(
     async (event?: FormEvent<HTMLFormElement>) => {
@@ -30,17 +30,17 @@ export default function SearchBar() {
           const movie = await getMovieDetails(result.id);
           movies.push(movie);
         }
-        moviesDispatch({ type: EMoviesActionTypes.REPLACE, payload: movies });
+        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: movies });
       } catch (err) {
         setError(err as Error);
       }
       setIsLoading(false);
     },
-    [query, searchDisabled, moviesDispatch]
+    [query, searchDisabled, globalDispatch]
   );
 
   useMountEffect(() => {
-    if (!searchDisabled && moviesState.movies.length < 1) {
+    if (!searchDisabled && globalState.movies.length < 1) {
       handleSearch();
     }
   });

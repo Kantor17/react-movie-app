@@ -13,15 +13,24 @@ export interface IMovie {
   vote_average?: number;
 }
 
-export interface IMoviesState {
+export interface IGlobalState {
   movies: IMovie[];
+  ideas: IMovie[];
 }
 
-export enum EMoviesActionTypes {
-  REPLACE = 'REPLACE',
+export enum EActionTypes {
+  REPLACE_MOVIES = 'REPLACE_MOVIES',
+  ADD_IDEA = 'ADD_IDEA',
 }
 
-export interface IMoviesAction {
-  type: EMoviesActionTypes;
+export interface IAddIdeaAction {
+  type: EActionTypes.ADD_IDEA;
+  payload: IMovie;
+}
+
+export interface IReplaceMoviesAction {
+  type: EActionTypes.REPLACE_MOVIES;
   payload: IMovie[];
 }
+
+export type Action = IAddIdeaAction | IReplaceMoviesAction;

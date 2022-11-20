@@ -3,17 +3,17 @@ import './Home.css';
 import MovieCardsList from 'components/MovieCardsList/';
 import SearchBar from 'components/SearchBar/';
 import Header from 'components/Header/';
-import { useMoviesContext } from 'store/moviesContext';
+import { useGlobalContext } from 'store/globalContext';
 
 export default function Home() {
-  const { moviesState } = useMoviesContext();
+  const { globalState } = useGlobalContext();
   return (
     <div className="home">
       <Header />
       <main className="main">
         <div className="container">
           <SearchBar />
-          <MovieCardsList movies={moviesState.movies} />
+          <MovieCardsList movies={globalState.movies} />
         </div>
       </main>
     </div>

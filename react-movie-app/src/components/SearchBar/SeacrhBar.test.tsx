@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import userEvent from '@testing-library/user-event';
 import { mockedDetailsResponse } from 'mocks/mockedData';
-import { MoviesContext } from 'store/moviesContext';
-import { EMoviesActionTypes } from 'types';
+import { defaultGlobalState, GlobalContext } from 'store/globalContext';
+import { EActionTypes } from 'types';
 
 describe('SearchBar', () => {
   const testValue = 'FooBar';
@@ -32,15 +32,15 @@ describe('SearchBar', () => {
 
   test('calls dispatch function with data from API after search', async () => {
     render(
-      <MoviesContext.Provider value={{ moviesState: { movies: [] }, moviesDispatch: cbMock }}>
+      <GlobalContext.Provider value={{ globalState: defaultGlobalState, globalDispatch: cbMock }}>
         <SearchBar />
-      </MoviesContext.Provider>
+      </GlobalContext.Provider>
     );
     fireEvent.change(getSearchBox(), { target: { value: 'Dallas Buyers Club' } });
     userEvent.click(screen.getByRole('button'));
     await waitFor(() =>
       expect(cbMock).toBeCalledWith({
-        type: EMoviesActionTypes.REPLACE,
+        type: EActionTypes.REPLACE_MOVIES,
         payload: [mockedDetailsResponse],
       })
     );
