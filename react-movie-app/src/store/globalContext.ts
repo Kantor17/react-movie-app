@@ -9,6 +9,9 @@ interface IGlobalContext {
 export const defaultGlobalState: IGlobalState = {
   movies: [],
   ideas: [],
+  submittedQuery: '',
+  searchPage: 1,
+  maxSearchPage: 1,
 };
 
 export const GlobalContext = React.createContext<IGlobalContext>({

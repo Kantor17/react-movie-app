@@ -4,6 +4,7 @@ import MovieCardsList from 'components/MovieCardsList/';
 import SearchBar from 'components/SearchBar/';
 import Header from 'components/Header/';
 import { useGlobalContext } from 'store/globalContext';
+import Pagination from 'components/Pagination';
 
 export default function Home() {
   const { globalState } = useGlobalContext();
@@ -14,6 +15,7 @@ export default function Home() {
         <div className="container">
           <SearchBar />
           <MovieCardsList movies={globalState.movies} />
+          {globalState.movies.length > 0 && <Pagination />}
         </div>
       </main>
     </div>

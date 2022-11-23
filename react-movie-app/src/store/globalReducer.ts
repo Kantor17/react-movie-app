@@ -13,6 +13,21 @@ export function globalReducer(state: IGlobalState, action: Action) {
         ...state,
         ideas: [...state.ideas, payload],
       };
+    case EActionTypes.CHANGE_SUBMITTED_QUERY:
+      return {
+        ...state,
+        submittedQuery: payload,
+      };
+    case EActionTypes.CHANGE_SEARCH_PAGE:
+      return {
+        ...state,
+        searchPage: payload,
+      };
+    case EActionTypes.CHANGE_MAX_SEARCH_PAGE:
+      return {
+        ...state,
+        maxSearchPage: payload,
+      };
     default:
       return state;
   }
