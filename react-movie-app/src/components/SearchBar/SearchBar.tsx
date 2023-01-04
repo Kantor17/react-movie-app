@@ -36,7 +36,7 @@ export default function SearchBar() {
           const movie = await getMovieDetails(result.id);
           movies.push(movie);
         }
-
+        console.log(movies);
         globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: movies });
         globalDispatch({
           type: EActionTypes.CHANGE_SEARCH_PAGE,
