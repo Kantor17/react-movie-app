@@ -14,7 +14,7 @@ export default function Home() {
       <main className="main">
         <div className="container">
           <SearchBar />
-          <MovieCardsList movies={globalState.movies} />
+          <MovieCardsList movies={globalState.movies} type={'searched'} />
           {globalState.movies.length > 0 && <Pagination />}
         </div>
       </main>

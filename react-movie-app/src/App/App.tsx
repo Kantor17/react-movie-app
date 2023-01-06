@@ -7,7 +7,7 @@ import PageNotFound from '../pages/PageNotFound/';
 import Ideas from '../pages/Ideas/';
 import { globalReducer } from '../store/globalReducer';
 import { defaultGlobalState, GlobalContext } from 'store/globalContext';
-import MovieInfo from 'pages/MovieInfo';
+import MovieInfo from 'pages/MovieDetails';
 
 function App() {
   const [globalState, globalDispatch] = useReducer(globalReducer, defaultGlobalState);
@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/ideas" element={<Ideas />} />
-            <Route path="/movie" element={<MovieInfo />} />
+            <Route path="/details" element={<MovieInfo />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

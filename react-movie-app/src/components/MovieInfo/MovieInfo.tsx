@@ -18,7 +18,7 @@ export default function MovieInfo({ movie }: IMovieInfoProps) {
           </div>
           <div className="movie-info__genres">
             <h4 className="movie-info__subtitle">Genres: </h4>
-            {movie.genres.map((genreObj) => genreObj.name).join(', ')}
+            {movie.genres?.map((genreObj) => genreObj.name).join(', ')}
           </div>
         </div>
         <div className="movie-info__column">

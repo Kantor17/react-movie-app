@@ -13,6 +13,11 @@ export function globalReducer(state: IGlobalState, action: Action) {
         ...state,
         ideas: [...state.ideas, payload],
       };
+    case EActionTypes.REPLACE_DETAILS_ITEM:
+      return {
+        ...state,
+        detailsItem: payload,
+      };
     case EActionTypes.CHANGE_SUBMITTED_QUERY:
       return {
         ...state,

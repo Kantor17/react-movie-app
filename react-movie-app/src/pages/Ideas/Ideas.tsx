@@ -22,7 +22,9 @@ export default function Ideas() {
               globalDispatch({ type: EActionTypes.ADD_IDEA, payload: movie })
             }
           />
-          {globalState.movies.length > 0 && <MovieCardsList movies={globalState.ideas} />}
+          {globalState.movies.length > 0 && (
+            <MovieCardsList movies={globalState.ideas} type={'idea'} />
+          )}
         </div>
       </main>
     </div>

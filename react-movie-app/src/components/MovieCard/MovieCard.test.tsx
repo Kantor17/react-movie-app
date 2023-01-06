@@ -6,7 +6,7 @@ import { movies } from '../../data/movies';
 const movieExample = movies[0];
 describe('MovieCard', () => {
   beforeEach(() => {
-    render(<MovieCard movie={movieExample} />);
+    render(<MovieCard movie={movieExample} type={'searched'} />);
   });
   test('has name of movie', () => {
     expect(screen.getByText(movieExample.title)).toBeInTheDocument();

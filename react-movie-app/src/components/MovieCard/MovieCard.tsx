@@ -1,28 +1,48 @@
 import MovieInfo from 'components/MovieInfo';
-import React, { useState } from 'react';
-import { IMovie } from 'types';
+import React, { useContext, useState } from 'react';
+import { EActionTypes, IMovie, TCardType } from 'types';
 import Modal from 'ui/Modal';
 import './MovieCard.css';
 import backdropPlaceholder from '../../assets/img/backdrop-placeholder.jpg';
+import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from 'store/globalContext';
+import { BASE_IMG_PATH } from 'API/constants';
 
 interface IMovieCardProps {
   movie: IMovie;
+  type: TCardType;
 }
 
-export default function MovieCard({ movie }: IMovieCardProps) {
+export default function MovieCard({ movie, type }: IMovieCardProps) {
   const [isModal, setModal] = useState(false);
+
+  const navigate = useNavigate();
+  const { globalDispatch } = useContext(GlobalContext);
 
   function getImageSrc() {
     const imagePath = movie.backdrop_path;
     if (!imagePath) return backdropPlaceholder;
     if (imagePath.includes('blob')) return imagePath;
-    const BASE_IMG_PATH = 'https://image.tmdb.org/t/p/original';
     return BASE_IMG_PATH + imagePath;
+  }
+
+  function showDetails() {
+    switch (type) {
+      case 'searched': {
+        globalDispatch({ type: EActionTypes.REPLACE_DETAILS_ITEM, payload: movie });
+        navigate('/details');
+        break;
+      }
+      case 'idea': {
+        setModal(true);
+        break;
+      }
+    }
   }
 
   return (
     <>
-      <div className="movie-card" onClick={() => setModal(true)} data-testid="movie-card">
+      <div className="movie-card" onClick={() => showDetails()} data-testid="movie-card">
         <div className="movie-card__poster">
           <img src={getImageSrc()} alt={`${movie.title} backdrop image`} className="bg-img" />
         </div>

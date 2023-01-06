@@ -9,6 +9,7 @@ interface IGlobalContext {
 export const defaultGlobalState: IGlobalState = {
   movies: [],
   ideas: [],
+  detailsItem: null,
   submittedQuery: '',
   searchPage: 1,
   maxSearchPage: 1,

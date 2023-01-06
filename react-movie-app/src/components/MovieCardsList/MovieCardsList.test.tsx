@@ -5,7 +5,7 @@ import { movies } from '../../data/movies';
 
 describe('MovieCardsList', () => {
   beforeEach(() => {
-    render(<MovieCardsList movies={movies} />);
+    render(<MovieCardsList movies={movies} type={'searched'} />);
   });
   test('contains MovieCards', () => {
     const movieCards = screen.getAllByTestId('movie-card');

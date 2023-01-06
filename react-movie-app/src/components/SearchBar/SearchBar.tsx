@@ -33,10 +33,9 @@ export default function SearchBar() {
         if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
         const movies: IMovie[] = [];
         for (const result of searchResult) {
-          const movie = await getMovieDetails(result.id);
+          const movie = await getMovieDetails(result.id, ['credits']);
           movies.push(movie);
         }
-        console.log(movies);
         globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: movies });
         globalDispatch({
           type: EActionTypes.CHANGE_SEARCH_PAGE,
