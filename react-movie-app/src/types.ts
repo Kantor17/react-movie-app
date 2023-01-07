@@ -4,13 +4,13 @@ export interface IMovie {
   poster_path?: string;
   genres?: {
     id?: number;
-    name: string;
+    name?: string;
   }[];
   original_language?: string;
   overview?: string;
-  release_date: string;
-  runtime?: number | string;
-  title: string;
+  release_date?: string;
+  runtime?: number;
+  title?: string;
   vote_average?: number;
   credits?: ICredits;
 }
@@ -48,9 +48,20 @@ export interface ICrew {
   character: null;
 }
 
+export interface IIdea {
+  id: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  genres: string[];
+  original_language: string;
+  runtime: string;
+  backdrop_path: string;
+}
+
 export interface IGlobalState {
   movies: IMovie[];
-  ideas: IMovie[];
+  ideas: IIdea[];
   detailsItem: IMovie | null;
   submittedQuery: string;
   searchPage: number;
@@ -70,7 +81,7 @@ export enum EActionTypes {
 
 export interface IAddIdeaAction {
   type: EActionTypes.ADD_IDEA;
-  payload: IMovie;
+  payload: IIdea;
 }
 
 export interface IReplaceMoviesAction {

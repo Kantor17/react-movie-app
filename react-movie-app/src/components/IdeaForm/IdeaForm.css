@@ -1,4 +1,4 @@
-.movie-form {
+.idea-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@
   border-radius: 8px;
 }
 
-.movie-form__input {
+.idea-form__input {
   height: 25px;
   background-color: inherit;
   border-bottom: 2px solid #fe4141;
@@ -20,29 +20,29 @@
   opacity: 0.85;
 }
 
-.movie-form__textarea {
+.idea-form__textarea {
   height: 80px;
 }
 
-.movie-form__date::-webkit-calendar-picker-indicator {
+.idea-form__date::-webkit-calendar-picker-indicator {
   filter: invert(0.8)
 }
 
-.movie-form__checkbox-group {
+.idea-form__checkbox-group {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.movie-form__duration-options {
+.idea-form__duration-options {
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 5px;
 }
 
-.movie-form__create-btn {
+.idea-form__create-btn {
   margin-top: 20px;
   width: 200px;
   height: 35px;
@@ -51,7 +51,7 @@
   border-radius: 2px;
 }
 
-.movie-form__success-msg {
+.idea-form__success-msg {
   font-size: 20px;
   font-weight: 600;
 }

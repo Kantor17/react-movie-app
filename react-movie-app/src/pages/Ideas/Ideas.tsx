@@ -1,9 +1,9 @@
 import Header from 'components/Header';
-import MovieCardsList from 'components/MovieCardsList';
-import MovieForm from 'components/MovieForm';
+import MovieCardsList from '../../components/MovieCardLists';
+import IdeaForm from '../../components/IdeaForm';
 import React from 'react';
 import { useGlobalContext } from 'store/globalContext';
-import { EActionTypes, IMovie } from 'types';
+import { EActionTypes, IIdea } from 'types';
 import './Ideas.css';
 
 export default function Ideas() {
@@ -17,14 +17,12 @@ export default function Ideas() {
           <p className="ideas__explanation">
             You can create your own movie ideas and see them as cards below the creation form
           </p>
-          <MovieForm
-            addNewItemCb={(movie: IMovie) =>
-              globalDispatch({ type: EActionTypes.ADD_IDEA, payload: movie })
+          <IdeaForm
+            addNewItemCb={(idea: IIdea) =>
+              globalDispatch({ type: EActionTypes.ADD_IDEA, payload: idea })
             }
           />
-          {globalState.movies.length > 0 && (
-            <MovieCardsList movies={globalState.ideas} type={'idea'} />
-          )}
+          {globalState.ideas.length > 0 && <MovieCardsList ideas={globalState.ideas} />}
         </div>
       </main>
     </div>

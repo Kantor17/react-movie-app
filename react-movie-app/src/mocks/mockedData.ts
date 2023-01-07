@@ -1,3 +1,5 @@
+import { IIdea } from 'types';
+
 export const mockedSearchResponse = {
   page: 1,
   results: [
@@ -118,4 +120,16 @@ export const mockedDetailsResponse = {
   video: false,
   vote_average: 7.936,
   vote_count: 7548,
+};
+
+export const mockedIdea: IIdea = {
+  id: '1g2ras2',
+  title: 'My movie',
+  overview:
+    'This is a mocked overview of mocked movie and it needs to be at least 50 characters long',
+  release_date: '9999-01-01',
+  genres: ['action', 'history'],
+  original_language: 'ua',
+  runtime: '> 50',
+  backdrop_path: 'https://image.tmdb.org/t/p/original/kytPt3B4ft2DH7OMNiAsWuXkw4K.jpg',
 };

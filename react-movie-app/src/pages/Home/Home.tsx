@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import MovieCardsList from 'components/MovieCardsList/';
+import MovieCardsList from 'components/MovieCardLists';
 import SearchBar from 'components/SearchBar/';
 import Header from 'components/Header/';
 import { useGlobalContext } from 'store/globalContext';
@@ -14,7 +14,7 @@ export default function Home() {
       <main className="main">
         <div className="container">
           <SearchBar />
-          <MovieCardsList movies={globalState.movies} type={'searched'} />
+          <MovieCardsList movies={globalState.movies} />
           {globalState.movies.length > 0 && <Pagination />}
         </div>
       </main>
