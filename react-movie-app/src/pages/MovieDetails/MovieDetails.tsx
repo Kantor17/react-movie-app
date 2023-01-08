@@ -1,4 +1,6 @@
 import { BASE_IMG_PATH } from 'API/constants';
+import backgroundPlaceholder from '../../assets/img/background-placeholder.jpg';
+import posterPlaceholder from '../../assets/img/poster-placeholder.jpg';
 import getMovieDetails from 'API/queries/getMovieDetails';
 import DetailsHeader from 'components/DetailsHeader';
 import React, { useContext, useEffect, useState } from 'react';
@@ -32,14 +34,22 @@ export default function MovieDetails() {
         <div className="hero__backdrop">
           <img
             className="hero__backdrop-img"
-            src={`${BASE_IMG_PATH}${movieDetails.backdrop_path}`}
+            src={
+              movieDetails.backdrop_path
+                ? `${BASE_IMG_PATH}${movieDetails.backdrop_path}`
+                : backgroundPlaceholder
+            }
             alt={`${movieDetails.title} backdrop`}
           />
         </div>
         <div className="container hero__container">
           <div className="hero__column hero__poster-column">
             <img
-              src={`${BASE_IMG_PATH}${movieDetails.poster_path}`}
+              src={
+                movieDetails.poster_path
+                  ? `${BASE_IMG_PATH}${movieDetails.poster_path}`
+                  : posterPlaceholder
+              }
               alt={`${movieDetails.title} poster`}
               className="hero__poster"
             />
