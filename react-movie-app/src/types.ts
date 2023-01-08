@@ -58,36 +58,36 @@ export interface IMovieDetails {
   credits: ICredits;
 }
 interface ICredits {
-  cast?: ICast[];
-  crew?: ICrew[];
+  cast: ICast[];
+  crew: ICrew[];
 }
 export interface ICast {
-  adult?: boolean;
-  gender?: number | null;
-  id?: number;
-  known_for_department?: string;
+  adult: boolean;
+  gender?: number;
+  id: number;
+  known_for_department: string;
   name?: string;
-  original_name?: string;
-  popularity?: number;
-  profile_path?: string | null;
-  cast_id?: number;
-  character?: string;
-  credit_id?: string;
-  order?: number;
+  original_name: string;
+  popularity: number;
+  profile_path?: string;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
   job: null;
 }
 export interface ICrew {
-  adult?: boolean;
-  gender?: number | null;
-  id?: number;
-  known_for_department?: string;
-  name?: string;
-  original_name?: string;
-  popularity?: number;
-  profile_path?: string | null;
-  credit_id?: string;
-  department?: string;
-  job?: string;
+  adult: boolean;
+  gender?: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path?: string;
+  credit_id: string;
+  department: string;
+  job: string;
   character: null;
 }
 
