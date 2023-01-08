@@ -1,18 +1,61 @@
 export interface IMovie {
-  id: number | string;
+  id: string;
+  title: string;
+  original_title?: string;
   backdrop_path?: string;
   poster_path?: string;
-  genres?: {
-    id?: number;
-    name?: string;
-  }[];
-  original_language?: string;
+  original_language: string;
   overview?: string;
-  release_date?: string;
-  runtime?: number;
-  title?: string;
+  release_date: string;
+  genre_ids: number[];
+  popularity: number;
+  vote_count: number;
+  video?: boolean;
   vote_average?: number;
-  credits?: ICredits;
+  adult?: boolean;
+}
+export interface IMovieDetails {
+  id: string;
+  adult: boolean;
+  belongs_to_collection?: Record<string, unknown>;
+  budget: number;
+  homepage?: string;
+  imdb_id?: string;
+  backdrop_path?: string;
+  poster_path?: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  original_language: string;
+  original_title: string;
+  popularity: number;
+  production_companies: {
+    name: string;
+    id: number;
+    logo_path?: string;
+    origin_country: string;
+  }[];
+
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+  revenue: number;
+  spoken_languages: {
+    iso_639_1: string;
+    name: string;
+  };
+  status: 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
+  tagline?: string;
+  overview?: string;
+  release_date: string;
+  runtime?: number;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  credits: ICredits;
 }
 interface ICredits {
   cast?: ICast[];
@@ -62,7 +105,7 @@ export interface IIdea {
 export interface IGlobalState {
   movies: IMovie[];
   ideas: IIdea[];
-  detailsItem: IMovie | null;
+  selectedMovieId: string | null;
   submittedQuery: string;
   searchPage: number;
   maxSearchPage: number;
@@ -73,7 +116,7 @@ export type TCardType = 'searched' | 'idea';
 export enum EActionTypes {
   REPLACE_MOVIES = 'REPLACE_MOVIES',
   ADD_IDEA = 'ADD_IDEA',
-  REPLACE_DETAILS_ITEM = 'REPLACE_DETAILS_ITEM',
+  REPLACE_SELECTED_MOVIE_ID = 'REPLACE_SELECTED_MOVIE_ID ',
   CHANGE_SUBMITTED_QUERY = 'CHANGE_SUBMITTED_QUERY',
   CHANGE_SEARCH_PAGE = 'CHANGE_SEARCH_PAGE',
   CHANGE_MAX_SEARCH_PAGE = 'CHANGE_MAX_SEARCH_PAGE',
@@ -83,36 +126,30 @@ export interface IAddIdeaAction {
   type: EActionTypes.ADD_IDEA;
   payload: IIdea;
 }
-
 export interface IReplaceMoviesAction {
   type: EActionTypes.REPLACE_MOVIES;
   payload: IMovie[];
 }
-
-export interface IReplaceDetailsItemAction {
-  type: EActionTypes.REPLACE_DETAILS_ITEM;
-  payload: IMovie;
+export interface IReplaceSelectedMovieIdAction {
+  type: EActionTypes.REPLACE_SELECTED_MOVIE_ID;
+  payload: string;
 }
-
 export interface IChangeSubmittedQueryAction {
   type: EActionTypes.CHANGE_SUBMITTED_QUERY;
   payload: string;
 }
-
 export interface IChangeSearchPageAction {
   type: EActionTypes.CHANGE_SEARCH_PAGE;
   payload: number;
 }
-
 export interface IChangeMaxSearchPageAction {
   type: EActionTypes.CHANGE_MAX_SEARCH_PAGE;
   payload: number;
 }
-
 export type Action =
   | IAddIdeaAction
   | IReplaceMoviesAction
-  | IReplaceDetailsItemAction
+  | IReplaceSelectedMovieIdAction
   | IChangeSubmittedQueryAction
   | IChangeSearchPageAction
   | IChangeMaxSearchPageAction;

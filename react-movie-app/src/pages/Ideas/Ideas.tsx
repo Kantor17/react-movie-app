@@ -1,5 +1,5 @@
 import Header from 'components/Header';
-import MovieCardsList from '../../components/MovieCardLists';
+import MovieCardsList from '../../components/MovieCardList';
 import IdeaForm from '../../components/IdeaForm';
 import React from 'react';
 import { useGlobalContext } from 'store/globalContext';

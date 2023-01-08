@@ -13,10 +13,10 @@ export function globalReducer(state: IGlobalState, action: Action) {
         ...state,
         ideas: [...state.ideas, payload],
       };
-    case EActionTypes.REPLACE_DETAILS_ITEM:
+    case EActionTypes.REPLACE_SELECTED_MOVIE_ID:
       return {
         ...state,
-        detailsItem: payload,
+        selectedMovieId: payload,
       };
     case EActionTypes.CHANGE_SUBMITTED_QUERY:
       return {

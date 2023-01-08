@@ -1,8 +1,7 @@
-import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
 import React, { useCallback, useContext, useState } from 'react';
 import { GlobalContext } from 'store/globalContext';
-import { EActionTypes, IMovie } from 'types';
+import { EActionTypes } from 'types';
 import ModalError from 'ui/ModalError';
 
 import './Pagination.css';
@@ -21,12 +20,7 @@ export default function Pagination() {
         const searchResult = searchResponse.results;
 
         if (searchResult.length < 1) throw new Error('No movies in this page.');
-        const movies: IMovie[] = [];
-        for (const result of searchResult) {
-          const movie = await getMovieDetails(result.id);
-          movies.push(movie);
-        }
-        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: movies });
+        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: searchResult });
 
         globalDispatch({
           type: EActionTypes.CHANGE_SEARCH_PAGE,

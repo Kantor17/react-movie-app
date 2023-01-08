@@ -7,7 +7,7 @@ export const mockedSearchResponse = {
       adult: false,
       backdrop_path: '/jHwASc8hBtdfRGUmxS6pq5mHiyN.jpg',
       genre_ids: [18, 36],
-      id: 152532,
+      id: '152532',
       original_language: 'en',
       original_title: 'Dallas Buyers Club',
       overview:

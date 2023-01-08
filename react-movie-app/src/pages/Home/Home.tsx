@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import MovieCardsList from 'components/MovieCardLists';
+import MovieCardsList from 'components/MovieCardList';
 import SearchBar from 'components/SearchBar/';
 import Header from 'components/Header/';
 import { useGlobalContext } from 'store/globalContext';

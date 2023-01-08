@@ -1,9 +1,8 @@
-import getMovieDetails from 'API/queries/getMovieDetails';
 import searchMovies from 'API/queries/searchMovies';
 import { useMountEffect } from 'hooks/useMountEffect';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useGlobalContext } from 'store/globalContext';
-import { EActionTypes, IMovie } from 'types';
+import { EActionTypes } from 'types';
 import Loader from 'ui/Loader';
 import ModalError from 'ui/ModalError';
 import './SearchBar.css';
@@ -31,12 +30,7 @@ export default function SearchBar() {
         const searchResult = searchResponse.results;
 
         if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
-        const movies: IMovie[] = [];
-        for (const result of searchResult) {
-          const movie = await getMovieDetails(result.id, ['credits']);
-          movies.push(movie);
-        }
-        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: movies });
+        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: searchResult });
         globalDispatch({
           type: EActionTypes.CHANGE_SEARCH_PAGE,
           payload: 1,

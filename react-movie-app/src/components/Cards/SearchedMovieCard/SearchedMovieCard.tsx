@@ -13,9 +13,8 @@ interface ISearchedMovieCardProps {
 export default function SearchedMovieCard({ movie }: ISearchedMovieCardProps) {
   const navigate = useNavigate();
   const { globalDispatch } = useContext(GlobalContext);
-
   function showDetails() {
-    globalDispatch({ type: EActionTypes.REPLACE_DETAILS_ITEM, payload: movie });
+    globalDispatch({ type: EActionTypes.REPLACE_SELECTED_MOVIE_ID, payload: movie.id });
     navigate('/details');
   }
 
