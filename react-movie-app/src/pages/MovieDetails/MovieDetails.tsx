@@ -1,12 +1,13 @@
 import { BASE_IMG_PATH } from 'API/constants';
 import getMovieDetails from 'API/queries/getMovieDetails';
+import DetailsHeader from 'components/DetailsHeader';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from 'store/globalContext';
 import { IMovieDetails } from 'types';
 import Loader from 'ui/Loader';
 import Credits from './Credits';
-import './MovieInfo.css';
+import './MovieDetails.css';
 
 export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails>();
@@ -25,8 +26,9 @@ export default function MovieDetails() {
   }, [globalState.selectedMovieId, navigate]);
 
   return movieDetails ? (
-    <main className="main">
+    <div className="movie-details">
       <section className="hero">
+        <DetailsHeader />
         <div className="hero__backdrop">
           <img
             className="hero__backdrop-img"
@@ -43,7 +45,9 @@ export default function MovieDetails() {
             />
           </div>
           <div className="hero__column hero__content-column">
-            <h1 className="hero__title">{movieDetails.title}</h1>
+            <h1 className="hero__title" onClick={() => navigate(-1)}>
+              {movieDetails.title}
+            </h1>
             <p className="hero__overview">{movieDetails.overview}</p>
             <div className="hero__main-info main-info">
               <div className="main-info__row">
@@ -69,7 +73,7 @@ export default function MovieDetails() {
       </section>
       {movieDetails.credits?.cast && <Credits people={movieDetails.credits?.cast} title="Cast" />}
       {movieDetails.credits?.crew && <Credits people={movieDetails.credits?.crew} title="Crew" />}
-    </main>
+    </div>
   ) : (
     <Loader />
   );
