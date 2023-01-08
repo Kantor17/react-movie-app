@@ -30,7 +30,7 @@ export default function Credits({ people, title }: ICreditsProps) {
         </div>
         <ul className="credits__list">
           {(isExtended ? people : people.slice(0, TOP_AMOUNT)).map((person) => (
-            <li className="credits__item" key={person.id}>
+            <li className="credits__item" key={person.id + (person.job || person.character || '')}>
               <img
                 src={
                   person.profile_path ? `${BASE_IMG_PATH}${person.profile_path}` : personPlaceholder
