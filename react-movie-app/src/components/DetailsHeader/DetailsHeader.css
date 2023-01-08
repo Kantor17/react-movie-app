@@ -1,9 +1,11 @@
+.details-header {
+  background-color: #212120;
+}
 .details-header__container {
   display: flex;
   justify-content: space-between;
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: #212120;
 }
 
 .details-header__return-btn::before {
