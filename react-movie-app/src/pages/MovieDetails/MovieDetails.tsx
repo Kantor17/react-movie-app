@@ -62,7 +62,7 @@ export default function MovieDetails() {
             <div className="hero__main-info main-info">
               <div className="main-info__row">
                 <div className="main-info__duration iconed" title="Duration">
-                  {movieDetails.runtime} min.
+                  {movieDetails.runtime ? `${movieDetails.runtime} min.` : '?'}
                 </div>
                 <div className="main-info__director iconed" title="Director">
                   {movieDetails.credits?.crew?.find((item) => item.job === 'Director')?.name || '?'}
@@ -81,8 +81,12 @@ export default function MovieDetails() {
           </div>
         </div>
       </section>
-      {movieDetails.credits?.cast && <Credits people={movieDetails.credits?.cast} title="Cast" />}
-      {movieDetails.credits?.crew && <Credits people={movieDetails.credits?.crew} title="Crew" />}
+      {movieDetails.credits.cast.length > 0 && (
+        <Credits people={movieDetails.credits?.cast} title="Cast" />
+      )}
+      {movieDetails.credits.crew.length > 0 && (
+        <Credits people={movieDetails.credits?.crew} title="Crew" />
+      )}
     </div>
   ) : (
     <Loader />
