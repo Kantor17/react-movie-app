@@ -89,6 +89,8 @@ export default function MovieDetails() {
       )}
     </div>
   ) : (
-    <Loader />
+    <div className="loader-container">
+      <Loader />
+    </div>
   );
 }
