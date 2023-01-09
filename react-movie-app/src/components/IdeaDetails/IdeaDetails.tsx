@@ -1,10 +1,12 @@
 import React from 'react';
 import { IIdea } from 'types';
+import languageFormatter from 'utils/languageFormatter';
 import './IdeaDetails.css';
 
 interface IIdeaDetailsProps {
   idea: IIdea;
 }
+
 export default function IdeaDetails({ idea }: IIdeaDetailsProps) {
   return (
     <div className="idea-details">
@@ -24,15 +26,14 @@ export default function IdeaDetails({ idea }: IIdeaDetailsProps) {
         <div className="idea-details__column">
           <div className="idea-details__language">
             <h4 className="idea-details__subtitle">Original language: </h4>
-            {idea.original_language}
+            {languageFormatter(idea.original_language)}
           </div>
-          <div className="idea-details__rating">
-            <h4 className="idea-details__subtitle">Rating: </h4>
-            TBA
+          <div className="idea-details__runtime">
+            <h4 className="idea-details__subtitle">Runtime: </h4>
+            {idea.runtime} min.
           </div>
         </div>
       </div>
-      <div className="idea-details__runtime">{idea.runtime} min.</div>
     </div>
   );
 }

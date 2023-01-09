@@ -42,18 +42,3 @@
 .idea-details__genres {
   text-transform: capitalize;
 }
-
-.idea-details__runtime {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  column-gap: 6px;
-}
-.idea-details__runtime::before {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background-image: url("../../assets/icons/time.svg");
-  background-repeat: no-repeat;
-}

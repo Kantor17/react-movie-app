@@ -124,7 +124,7 @@ export default function IdeaForm({ addNewItemCb }: IIdeaFormProps) {
             className="idea-form__input"
           >
             <option value="en">English</option>
-            <option value="ua">Ukrainian</option>
+            <option value="uk">Ukrainian</option>
             <option value="fr">French</option>
             <option value="it">Italian</option>
             <option value="ja">Japanese</option>
