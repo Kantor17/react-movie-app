@@ -55,7 +55,9 @@ export default function MovieDetails() {
             />
           </div>
           <div className="hero__column hero__content-column">
-            <h1 className="hero__title">{movieDetails.title}</h1>
+            <h1 className="hero__title" onClick={() => navigate(-1)}>
+              {movieDetails.title}
+            </h1>
             <p className="hero__overview">{movieDetails.overview}</p>
             <div className="hero__main-info main-info">
               <div className="main-info__row">
