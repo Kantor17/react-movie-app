@@ -6,7 +6,6 @@ import languageFormatter from 'utils/languageFormatter';
 
 describe('IdeaDetails', () => {
   beforeEach(() => {
-
     render(<IdeaDetails idea={mockedIdea} />);
   });
   test('has genres of movie', () => {
