@@ -1,20 +1,24 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import MovieCard from '../SearchedMovieCard/SearchedMovieCard';
-import { mockedSearchResponse } from 'mocks/mockedData';
+import IdeaCard from './IdeaCard';
+import { mockedIdea } from 'mocks/mockedData';
+import { BrowserRouter } from 'react-router-dom';
 
-const movieExample = mockedSearchResponse.results[0];
-describe('MovieCard', () => {
+describe('IdeaCard', () => {
   beforeEach(() => {
-    render(<MovieCard movie={movieExample} />);
+    render(
+      <BrowserRouter>
+        <IdeaCard idea={mockedIdea} />
+      </BrowserRouter>
+    );
   });
   test('has name of movie', () => {
-    expect(screen.getByText(movieExample.title)).toBeInTheDocument();
+    expect(screen.getByText(mockedIdea.title)).toBeInTheDocument();
   });
   test('has release year of movie in parentheses', () => {
-    expect(screen.getByText(`(${movieExample.release_date.slice(0, 4)})`)).toBeInTheDocument();
+    expect(screen.getByText(`(${mockedIdea.release_date.slice(0, 4)})`)).toBeInTheDocument();
   });
   test('has alt text with name of movie', () => {
-    expect(screen.getByAltText(`${movieExample.title} backdrop image`)).toBeInTheDocument();
+    expect(screen.getByAltText(`${mockedIdea.title} backdrop image`)).toBeInTheDocument();
   });
 });

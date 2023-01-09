@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import userEvent from '@testing-library/user-event';
-import { mockedDetailsResponse } from 'mocks/mockedData';
+import { mockedDetailsResponse, mockedSearchResponse } from 'mocks/mockedData';
 import { defaultGlobalState, GlobalContext } from 'store/globalContext';
 import { EActionTypes } from 'types';
 
@@ -41,7 +41,7 @@ describe('SearchBar', () => {
     await waitFor(() =>
       expect(cbMock).toBeCalledWith({
         type: EActionTypes.REPLACE_MOVIES,
-        payload: [mockedDetailsResponse],
+        payload: mockedSearchResponse.results,
       })
     );
   });
