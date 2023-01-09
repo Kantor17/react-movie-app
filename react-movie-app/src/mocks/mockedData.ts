@@ -129,7 +129,7 @@ export const mockedIdea: IIdea = {
     'This is a mocked overview of mocked movie and it needs to be at least 50 characters long',
   release_date: '9999-01-01',
   genres: ['action', 'history'],
-  original_language: 'ua',
+  original_language: 'uk',
   runtime: '> 50',
   backdrop_path: 'https://image.tmdb.org/t/p/original/kytPt3B4ft2DH7OMNiAsWuXkw4K.jpg',
 };
