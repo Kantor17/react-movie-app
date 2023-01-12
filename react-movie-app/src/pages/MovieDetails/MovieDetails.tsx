@@ -3,29 +3,30 @@ import backgroundPlaceholder from '../../assets/img/background-placeholder.jpg';
 import posterPlaceholder from '../../assets/img/poster-placeholder.jpg';
 import getMovieDetails from 'API/queries/getMovieDetails';
 import DetailsHeader from 'components/DetailsHeader';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from 'store/globalContext';
 import { IMovieDetails } from 'types';
 import Loader from 'ui/Loader';
 import Credits from './Credits';
 import './MovieDetails.css';
+import { useTypedSelector } from 'hooks/reduxHooks';
 
 export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails>();
-  const { globalState } = useContext(GlobalContext);
   const navigate = useNavigate();
+
+  const { selectedMovieId } = useTypedSelector((state) => state.search);
 
   useEffect(() => {
     async function getData() {
-      if (globalState.selectedMovieId) {
-        setMovieDetails(await getMovieDetails(globalState.selectedMovieId, ['credits']));
+      if (selectedMovieId) {
+        setMovieDetails(await getMovieDetails(selectedMovieId, ['credits']));
       } else {
         navigate('/');
       }
     }
     getData();
-  }, [globalState.selectedMovieId, navigate]);
+  }, [selectedMovieId, navigate]);
 
   return movieDetails ? (
     <div className="movie-details">

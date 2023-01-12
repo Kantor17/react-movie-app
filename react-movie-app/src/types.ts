@@ -102,54 +102,45 @@ export interface IIdea {
   backdrop_path: string;
 }
 
-export interface IGlobalState {
-  movies: IMovie[];
-  ideas: IIdea[];
-  selectedMovieId: string | null;
-  submittedQuery: string;
-  searchPage: number;
-  maxSearchPage: number;
-}
-
 export type TCardType = 'searched' | 'idea';
 
-export enum EActionTypes {
-  REPLACE_MOVIES = 'REPLACE_MOVIES',
-  ADD_IDEA = 'ADD_IDEA',
-  REPLACE_SELECTED_MOVIE_ID = 'REPLACE_SELECTED_MOVIE_ID ',
-  CHANGE_SUBMITTED_QUERY = 'CHANGE_SUBMITTED_QUERY',
-  CHANGE_SEARCH_PAGE = 'CHANGE_SEARCH_PAGE',
-  CHANGE_MAX_SEARCH_PAGE = 'CHANGE_MAX_SEARCH_PAGE',
-}
+// export enum EActionTypes {
+//   REPLACE_MOVIES = 'REPLACE_MOVIES',
+//   ADD_IDEA = 'ADD_IDEA',
+//   REPLACE_SELECTED_MOVIE_ID = 'REPLACE_SELECTED_MOVIE_ID ',
+//   CHANGE_SUBMITTED_QUERY = 'CHANGE_SUBMITTED_QUERY',
+//   CHANGE_SEARCH_PAGE = 'CHANGE_SEARCH_PAGE',
+//   CHANGE_MAX_SEARCH_PAGE = 'CHANGE_MAX_SEARCH_PAGE',
+// }
 
-export interface IAddIdeaAction {
-  type: EActionTypes.ADD_IDEA;
-  payload: IIdea;
-}
-export interface IReplaceMoviesAction {
-  type: EActionTypes.REPLACE_MOVIES;
-  payload: IMovie[];
-}
-export interface IReplaceSelectedMovieIdAction {
-  type: EActionTypes.REPLACE_SELECTED_MOVIE_ID;
-  payload: string;
-}
-export interface IChangeSubmittedQueryAction {
-  type: EActionTypes.CHANGE_SUBMITTED_QUERY;
-  payload: string;
-}
-export interface IChangeSearchPageAction {
-  type: EActionTypes.CHANGE_SEARCH_PAGE;
-  payload: number;
-}
-export interface IChangeMaxSearchPageAction {
-  type: EActionTypes.CHANGE_MAX_SEARCH_PAGE;
-  payload: number;
-}
-export type Action =
-  | IAddIdeaAction
-  | IReplaceMoviesAction
-  | IReplaceSelectedMovieIdAction
-  | IChangeSubmittedQueryAction
-  | IChangeSearchPageAction
-  | IChangeMaxSearchPageAction;
+// export interface IAddIdeaAction {
+//   type: EActionTypes.ADD_IDEA;
+//   payload: IIdea;
+// }
+// export interface IReplaceMoviesAction {
+//   type: EActionTypes.REPLACE_MOVIES;
+//   payload: IMovie[];
+// }
+// export interface IReplaceSelectedMovieIdAction {
+//   type: EActionTypes.REPLACE_SELECTED_MOVIE_ID;
+//   payload: string;
+// }
+// export interface IChangeSubmittedQueryAction {
+//   type: EActionTypes.CHANGE_SUBMITTED_QUERY;
+//   payload: string;
+// }
+// export interface IChangeSearchPageAction {
+//   type: EActionTypes.CHANGE_SEARCH_PAGE;
+//   payload: number;
+// }
+// export interface IChangeMaxSearchPageAction {
+//   type: EActionTypes.CHANGE_MAX_SEARCH_PAGE;
+//   payload: number;
+// }
+// export type Action =
+//   | IAddIdeaAction
+//   | IReplaceMoviesAction
+//   | IReplaceSelectedMovieIdAction
+//   | IChangeSubmittedQueryAction
+//   | IChangeSearchPageAction
+//   | IChangeMaxSearchPageAction;

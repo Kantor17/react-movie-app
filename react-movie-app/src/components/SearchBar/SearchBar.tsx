@@ -1,8 +1,13 @@
 import searchMovies from 'API/queries/searchMovies';
+import { useTypedDispatch, useTypedSelector } from 'hooks/reduxHooks';
 import { useMountEffect } from 'hooks/useMountEffect';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useGlobalContext } from 'store/globalContext';
-import { EActionTypes } from 'types';
+import {
+  changeMaxSearchPage,
+  changeSearchPage,
+  changeSubmittedQuery,
+  replaceMovies,
+} from 'store/slices/searchSlice';
 import Loader from 'ui/Loader';
 import ModalError from 'ui/ModalError';
 import './SearchBar.css';
@@ -13,16 +18,15 @@ export default function SearchBar() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const { globalState, globalDispatch } = useGlobalContext();
+  const dispatch = useTypedDispatch();
+  const movies = useTypedSelector((state) => state.search.movies);
 
   const handleSubmit = useCallback(
     async (event?: FormEvent<HTMLFormElement>) => {
       if (event) event.preventDefault();
       if (searchDisabled) return;
-      globalDispatch({
-        type: EActionTypes.CHANGE_SUBMITTED_QUERY,
-        payload: query,
-      });
+
+      dispatch(changeSubmittedQuery(query));
 
       setIsLoading(true);
       try {
@@ -30,25 +34,19 @@ export default function SearchBar() {
         const searchResult = searchResponse.results;
 
         if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
-        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: searchResult });
-        globalDispatch({
-          type: EActionTypes.CHANGE_SEARCH_PAGE,
-          payload: 1,
-        });
-        globalDispatch({
-          type: EActionTypes.CHANGE_MAX_SEARCH_PAGE,
-          payload: searchResponse.total_pages,
-        });
+        dispatch(replaceMovies(searchResult));
+        dispatch(changeSearchPage(1));
+        dispatch(changeMaxSearchPage(searchResponse.total_pages));
       } catch (err) {
         setError(err as Error);
       }
       setIsLoading(false);
     },
-    [searchDisabled, query, globalDispatch]
+    [searchDisabled, dispatch, query]
   );
 
   useMountEffect(() => {
-    if (!searchDisabled && globalState.movies.length < 1) {
+    if (!searchDisabled && movies.length < 1) {
       handleSubmit();
     }
   });
