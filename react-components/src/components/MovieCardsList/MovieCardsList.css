@@ -1,0 +1,7 @@
+.movie-cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 15px 0px;
+}
