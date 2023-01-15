@@ -128,10 +128,14 @@ export default class MovieForm extends React.Component<IMovieFormProps, IMovieFo
       const movie: IMovie = {
         id: uuid(),
         title: this.nameRef.current?.value as string,
-        overview: this.overviewRef.current?.value as string,
+        overview: this.overviewRef.current?.value,
         release_date: this.dateRef.current?.value as string,
-        original_language: this.languageRef.current?.value as string,
-        genres: this.getGenres(),
+        original_language: this.languageRef.current?.value,
+        genres: this.getGenres().map((genre) => {
+          return {
+            name: genre,
+          };
+        }),
         runtime: this.durationRef.current?.checked ? '> 50' : '< 50',
         backdrop_path: URL.createObjectURL((this.imageRef.current?.files as FileList)[0]),
       };
