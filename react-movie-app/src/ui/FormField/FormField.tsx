@@ -1,19 +1,20 @@
 import React, { ReactElement } from 'react';
+import { FieldError, Merge, FieldErrorsImpl } from 'react-hook-form';
 import './FormField.css';
 
 interface IFormFieldProps {
   inputE: ReactElement;
   labelText: string;
-  errors?: string[];
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl>;
 }
-export default function FormField({ inputE, labelText, errors }: IFormFieldProps) {
+export default function FormField({ inputE, labelText, error }: IFormFieldProps) {
   return (
     <div className="form-field">
       <label htmlFor={inputE.props.id} className="form-field__label">
         {labelText}
       </label>
       {inputE}
-      {errors && errors.length > 0 && <p className="form-field__error">{errors.join(' ')}</p>}
+      {error && <p className="form-field__error">{error.message?.toString()}</p>}
     </div>
   );
 }

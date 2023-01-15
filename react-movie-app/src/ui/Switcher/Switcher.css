@@ -22,9 +22,7 @@
 .switcher__checkbox {
   visibility: hidden;
 }
-.switcher__checkbox:checked + .switcher__slider {
-  background-color: blue;
-}
+
 .switcher__checkbox:checked + .switcher__slider::before {
   left: 23px;
 } 

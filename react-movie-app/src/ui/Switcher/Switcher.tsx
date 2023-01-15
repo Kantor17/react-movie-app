@@ -1,13 +1,21 @@
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import './Switcher.css';
 
 interface ISwitcherProps {
-  inputRef?: React.RefObject<HTMLInputElement>;
+  register?: UseFormRegisterReturn;
 }
-export default function Switcher({ inputRef }: ISwitcherProps) {
+export default function Switcher({ register }: ISwitcherProps) {
   return (
     <label htmlFor="switchbox" className="switcher">
-      <input id="switchbox" type="checkbox" className="switcher__checkbox" ref={inputRef} />
+      <input
+        {...register}
+        id="switchbox"
+        type="checkbox"
+        className="switcher__checkbox"
+        value="switched"
+        // checked={true}
+      />
       <span className="switcher__slider"></span>
     </label>
   );
