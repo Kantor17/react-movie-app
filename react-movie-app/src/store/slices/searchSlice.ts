@@ -5,9 +5,8 @@ import { IMovie } from 'types';
 type TStatus = 'pending' | 'fulfilled' | 'rejected';
 interface ISearchState {
   status: TStatus;
-  error: SerializedError | null;
+  error: SerializedError | Error | null;
   movies: IMovie[];
-  selectedMovieId: string | null;
   submittedQuery: string;
   searchPage: number;
   maxSearchPage: number;
@@ -17,7 +16,6 @@ const initialState: ISearchState = {
   status: 'fulfilled',
   error: null,
   movies: [],
-  selectedMovieId: null,
   submittedQuery: '',
   searchPage: 1,
   maxSearchPage: 1,
@@ -36,9 +34,6 @@ export const searchSlice = createSlice({
   reducers: {
     replaceMovies: (state, action: PayloadAction<IMovie[]>) => {
       state.movies = action.payload;
-    },
-    selectMovie: (state, action: PayloadAction<string>) => {
-      state.selectedMovieId = action.payload;
     },
     changeSubmittedQuery: (state, action: PayloadAction<string>) => {
       state.submittedQuery = action.payload;
@@ -77,7 +72,6 @@ export const searchSlice = createSlice({
 
 export const {
   replaceMovies,
-  selectMovie,
   changeSubmittedQuery,
   changeSearchPage,
   changeMaxSearchPage,

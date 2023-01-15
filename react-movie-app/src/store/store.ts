@@ -7,6 +7,13 @@ const store = configureStore({
     search: searchReducer,
     ideas: ideasReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['search/changeError'],
+        ignoredPaths: ['search.error'],
+      },
+    }),
 });
 
 export default store;

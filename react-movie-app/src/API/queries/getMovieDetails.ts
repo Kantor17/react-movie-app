@@ -6,6 +6,7 @@ export default async function getMovieDetails(id: string | number, addInfo?: ['c
       addInfo ? `&append_to_response=${addInfo.join(', ')}` : ''
     }`
   );
+  if (!response.ok) throw new Error('Unable to get details from server');
   const data = await response.json();
   return data;
 }

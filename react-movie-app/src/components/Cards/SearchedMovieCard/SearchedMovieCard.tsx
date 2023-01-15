@@ -4,8 +4,6 @@ import backdropPlaceholder from '../../../assets/img/backdrop-placeholder.jpg';
 import { useNavigate } from 'react-router-dom';
 import { BASE_IMG_PATH } from 'API/constants';
 import '../MovieCard.css';
-import { useTypedDispatch } from 'hooks/reduxHooks';
-import { selectMovie } from 'store/slices/searchSlice';
 
 interface ISearchedMovieCardProps {
   movie: IMovie;
@@ -13,11 +11,9 @@ interface ISearchedMovieCardProps {
 
 export default function SearchedMovieCard({ movie }: ISearchedMovieCardProps) {
   const navigate = useNavigate();
-  const dispatch = useTypedDispatch();
 
   function showDetails() {
-    dispatch(selectMovie(movie.id));
-    navigate('/details');
+    navigate(`/details/:${movie.id}`);
   }
 
   return (
