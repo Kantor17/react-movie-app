@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { EActionTypes, IMovie } from 'types';
+import React from 'react';
+import { IMovie } from 'types';
 import backdropPlaceholder from '../../../assets/img/backdrop-placeholder.jpg';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from 'store/globalContext';
 import { BASE_IMG_PATH } from 'API/constants';
 import '../MovieCard.css';
 
@@ -12,10 +11,9 @@ interface ISearchedMovieCardProps {
 
 export default function SearchedMovieCard({ movie }: ISearchedMovieCardProps) {
   const navigate = useNavigate();
-  const { globalDispatch } = useContext(GlobalContext);
+
   function showDetails() {
-    globalDispatch({ type: EActionTypes.REPLACE_SELECTED_MOVIE_ID, payload: movie.id });
-    navigate('/details');
+    navigate(`/details/:${movie.id}`);
   }
 
   return (

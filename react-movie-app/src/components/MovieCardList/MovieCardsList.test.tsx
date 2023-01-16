@@ -3,12 +3,16 @@ import { render, screen } from '@testing-library/react';
 import MovieCardsList from './MovieCardsList';
 import { mockedSearchResponse } from 'mocks/mockedData';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from 'store';
 
 describe('MovieCardsList', () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <MovieCardsList movies={mockedSearchResponse.results} />
+        <Provider store={store}>
+          <MovieCardsList movies={mockedSearchResponse.results} />
+        </Provider>
       </BrowserRouter>
     );
   });

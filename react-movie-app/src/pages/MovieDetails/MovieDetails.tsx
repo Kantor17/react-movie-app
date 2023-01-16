@@ -3,29 +3,38 @@ import backgroundPlaceholder from '../../assets/img/background-placeholder.jpg';
 import posterPlaceholder from '../../assets/img/poster-placeholder.jpg';
 import getMovieDetails from 'API/queries/getMovieDetails';
 import DetailsHeader from 'components/DetailsHeader';
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from 'store/globalContext';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IMovieDetails } from 'types';
 import Loader from 'ui/Loader';
 import Credits from './Credits';
 import './MovieDetails.css';
+import { useTypedDispatch } from 'hooks/reduxHooks';
+import { changeError } from 'store/slices/searchSlice';
 
 export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState<IMovieDetails>();
-  const { globalState } = useContext(GlobalContext);
   const navigate = useNavigate();
+  const dispatch = useTypedDispatch();
+
+  const idParam = useParams().id;
+  const movieId = idParam?.slice(1, idParam.length);
 
   useEffect(() => {
     async function getData() {
-      if (globalState.selectedMovieId) {
-        setMovieDetails(await getMovieDetails(globalState.selectedMovieId, ['credits']));
+      if (movieId) {
+        try {
+          setMovieDetails(await getMovieDetails(movieId, ['credits']));
+        } catch (err) {
+          navigate('/');
+          dispatch(changeError(err as Error));
+        }
       } else {
         navigate('/');
       }
     }
     getData();
-  }, [globalState.selectedMovieId, navigate]);
+  }, [navigate, movieId, dispatch]);
 
   return movieDetails ? (
     <div className="movie-details">

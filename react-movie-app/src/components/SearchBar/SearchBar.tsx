@@ -1,54 +1,29 @@
-import searchMovies from 'API/queries/searchMovies';
+import { useTypedDispatch, useTypedSelector } from 'hooks/reduxHooks';
 import { useMountEffect } from 'hooks/useMountEffect';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
-import { useGlobalContext } from 'store/globalContext';
-import { EActionTypes } from 'types';
+import { searchMovies } from 'store/slices/searchSlice';
 import Loader from 'ui/Loader';
-import ModalError from 'ui/ModalError';
 import './SearchBar.css';
 
 export default function SearchBar() {
   const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
   const [searchDisabled, setSearchDisabled] = useState(query.trim().length < 1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error>();
 
-  const { globalState, globalDispatch } = useGlobalContext();
+  const dispatch = useTypedDispatch();
+  const { status, movies } = useTypedSelector((state) => state.search);
 
   const handleSubmit = useCallback(
     async (event?: FormEvent<HTMLFormElement>) => {
       if (event) event.preventDefault();
       if (searchDisabled) return;
-      globalDispatch({
-        type: EActionTypes.CHANGE_SUBMITTED_QUERY,
-        payload: query,
-      });
 
-      setIsLoading(true);
-      try {
-        const searchResponse = await searchMovies(query, 1);
-        const searchResult = searchResponse.results;
-
-        if (searchResult.length < 1) throw new Error('No movies found. Try another query.');
-        globalDispatch({ type: EActionTypes.REPLACE_MOVIES, payload: searchResult });
-        globalDispatch({
-          type: EActionTypes.CHANGE_SEARCH_PAGE,
-          payload: 1,
-        });
-        globalDispatch({
-          type: EActionTypes.CHANGE_MAX_SEARCH_PAGE,
-          payload: searchResponse.total_pages,
-        });
-      } catch (err) {
-        setError(err as Error);
-      }
-      setIsLoading(false);
+      dispatch(searchMovies({ keyword: query, page: 1 }));
     },
-    [searchDisabled, query, globalDispatch]
+    [searchDisabled, dispatch, query]
   );
 
   useMountEffect(() => {
-    if (!searchDisabled && globalState.movies.length < 1) {
+    if (!searchDisabled && movies.length < 1) {
       handleSubmit();
     }
   });
@@ -69,7 +44,6 @@ export default function SearchBar() {
 
   return (
     <>
-      {error && <ModalError closeCb={() => setError(undefined)} error={error} />}
       <form method="get" className="search-bar" onSubmit={(event) => handleSubmit(event)}>
         <input
           value={query}
@@ -81,10 +55,10 @@ export default function SearchBar() {
         <button
           type="submit"
           className={`search-bar__submit button ${
-            isLoading || searchDisabled ? 'search-bar__submit_disabled' : ''
+            status === 'pending' || searchDisabled ? 'search-bar__submit_disabled' : ''
           }`}
         >
-          {isLoading ? <Loader /> : 'Search'}
+          {status === 'pending' ? <Loader /> : 'Search'}
         </button>
       </form>
     </>
