@@ -4,16 +4,16 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { IMovie } from 'types';
+import { IIdea } from 'types';
 import CheckboxItem from 'ui/CheckboxItem';
 import Switcher from 'ui/Switcher';
 import FormField from '../../ui/FormField/FormField';
 import Modal from 'ui/Modal/';
-import './MovieForm.css';
+import './IdeaForm.css';
 import { formatDate } from 'utils/formatDate';
 
-interface IMovieFormProps {
-  addNewItemCb: (movie: IMovie) => void;
+interface IIdeaFormProps {
+  addNewItemCb: (idea: IIdea) => void;
 }
 
 const schema = yup.object().shape({
@@ -39,7 +39,7 @@ const schema = yup.object().shape({
     }),
 });
 
-export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
+export default function IdeaForm({ addNewItemCb }: IIdeaFormProps) {
   const [successModal, setSuccessModal] = useState(false);
 
   const {
@@ -50,31 +50,27 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
   } = useForm({ mode: 'onSubmit', resolver: yupResolver(schema) });
 
   const onSubmit = handleSubmit((data) => {
-    const movie: IMovie = {
+    const idea: IIdea = {
       id: uuid(),
       title: data.title,
       overview: data.overview,
       release_date: formatDate(data.date),
       original_language: data.language,
-      genres: data.genres.map((genre: string) => {
-        return {
-          name: genre,
-        };
-      }),
+      genres: data.genres,
       runtime: data.duration ? '> 50' : '< 50',
       backdrop_path: URL.createObjectURL((data.image as FileList)[0]),
     };
 
-    addNewItemCb(movie);
+    addNewItemCb(idea);
     setSuccessModal(true);
     reset();
   });
 
   return (
-    <form className="movie-form" onSubmit={onSubmit}>
+    <form className="idea-form" onSubmit={onSubmit}>
       {successModal && (
         <Modal closeCb={() => setSuccessModal(false)}>
-          <p className="movie-form__success-msg">
+          <p className="idea-form__success-msg">
             You have successfully created your movie idea&apos;s card!
           </p>
         </Modal>
@@ -85,7 +81,7 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
             {...register('title')}
             id="title-input"
             type="text"
-            className="movie-form__input"
+            className="idea-form__input"
             placeholder="Title of your movie"
           />
         }
@@ -100,7 +96,7 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
               minLength: { value: 50, message: 'Overview must contain at least 50 characters.' },
             })}
             id="overview-input"
-            className="movie-form__textarea movie-form__input"
+            className="idea-form__textarea idea-form__input"
             placeholder="Short description of your movie"
           ></textarea>
         }
@@ -113,7 +109,7 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
             {...register('date')}
             id="date"
             type="date"
-            className="movie-form__input movie-form__date"
+            className="idea-form__input idea-form__date"
           />
         }
         labelText="Planning release date"
@@ -125,10 +121,10 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
             {...register('language')}
             id="language-input"
             name="language"
-            className="movie-form__input"
+            className="idea-form__input"
           >
             <option value="en">English</option>
-            <option value="ua">Ukrainian</option>
+            <option value="uk">Ukrainian</option>
             <option value="fr">French</option>
             <option value="it">Italian</option>
             <option value="ja">Japanese</option>
@@ -138,7 +134,7 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
       />
       <FormField
         inputE={
-          <fieldset id="genres-input" className="movie-form__checkbox-group">
+          <fieldset id="genres-input" className="idea-form__checkbox-group">
             <CheckboxItem register={register('genres')} name="drama" />
             <CheckboxItem register={register('genres')} name="mystery" />
             <CheckboxItem register={register('genres')} name="history" />
@@ -154,7 +150,7 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
       />
       <FormField
         inputE={
-          <div className="movie-form__duration-options">
+          <div className="idea-form__duration-options">
             <label>Short</label>
             <Switcher register={register('duration')} />
             <label>Full-length</label>
@@ -170,14 +166,14 @@ export default function MovieForm({ addNewItemCb }: IMovieFormProps) {
             type="file"
             multiple={false}
             accept=".png, .jpg, .jpeg"
-            className="movie-form__file"
+            className="idea-form__file"
           />
         }
         labelText="Backdrop image"
         error={errors.image}
       />
       <button
-        className={`movie-form__create-btn button ${
+        className={`idea-form__create-btn button ${
           (!isValid && isSubmitted) || !isDirty ? 'button_disabled' : ''
         }`}
         type="submit"

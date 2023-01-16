@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import MovieForm from './MovieForm';
+import IdeaForm from './IdeaForm';
 import userEvent from '@testing-library/user-event';
 
-describe('MovieForm', () => {
+describe('IdeaForm', () => {
   const cbMock = jest.fn();
   const imageMock = new File(['test'], 'test.png', { type: 'image/png' });
   beforeEach(() => {
     window.URL.createObjectURL = jest.fn();
-    render(<MovieForm addNewItemCb={cbMock} />);
+    render(<IdeaForm addNewItemCb={cbMock} />);
   });
 
   test('calls creation callback with data from the form if it was filled correctly', async () => {
@@ -24,7 +24,7 @@ describe('MovieForm', () => {
 
     const expectedObject = {
       backdrop_path: 'https://image.tmdb.org/t/p/original//jFp5aAlGQ1H3gwdORL2urr8dnoN.jpg',
-      genres: [{ name: 'drama' }],
+      genres: ['drama'],
       original_language: 'en',
       overview: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
       release_date: '9999-10-10',

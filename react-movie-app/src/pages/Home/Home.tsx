@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Home.css';
-import MovieCardsList from 'components/MovieCardsList/';
+import MovieCardsList from 'components/MovieCardList';
 import SearchBar from 'components/SearchBar/';
 import Header from 'components/Header/';
-import { IMovie } from 'types';
+import { useGlobalContext } from 'store/globalContext';
+import Pagination from 'components/Pagination';
 
 export default function Home() {
-  const [movies, setMovies] = useState<IMovie[]>([]);
-
+  const { globalState } = useGlobalContext();
   return (
     <div className="home">
       <Header />
       <main className="main">
         <div className="container">
-          <SearchBar changeMoviesCb={(movies: IMovie[]) => setMovies(movies)} />
-          <MovieCardsList movies={movies} />
+          <SearchBar />
+          <MovieCardsList movies={globalState.movies} />
+          {globalState.movies.length > 0 && <Pagination />}
         </div>
       </main>
     </div>

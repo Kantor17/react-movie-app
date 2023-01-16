@@ -1,13 +1,13 @@
 import Header from 'components/Header';
-import MovieCardsList from 'components/MovieCardsList';
-import MovieForm from 'components/MovieForm';
-import React, { useState } from 'react';
-import { IMovie } from 'types';
+import MovieCardsList from '../../components/MovieCardList';
+import IdeaForm from '../../components/IdeaForm';
+import React from 'react';
+import { useGlobalContext } from 'store/globalContext';
+import { EActionTypes, IIdea } from 'types';
 import './Ideas.css';
 
 export default function Ideas() {
-  const [movies, setMovies] = useState<IMovie[]>([]);
-
+  const { globalState, globalDispatch } = useGlobalContext();
   return (
     <div className="ideas">
       <Header />
@@ -17,8 +17,12 @@ export default function Ideas() {
           <p className="ideas__explanation">
             You can create your own movie ideas and see them as cards below the creation form
           </p>
-          <MovieForm addNewItemCb={(movie: IMovie) => setMovies([...movies, movie])} />
-          {movies.length > 0 && <MovieCardsList movies={movies} />}
+          <IdeaForm
+            addNewItemCb={(idea: IIdea) =>
+              globalDispatch({ type: EActionTypes.ADD_IDEA, payload: idea })
+            }
+          />
+          {globalState.ideas.length > 0 && <MovieCardsList ideas={globalState.ideas} />}
         </div>
       </main>
     </div>
